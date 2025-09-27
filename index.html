@@ -73,14 +73,15 @@
     }
     
     .menu-item-card {
-        transition: transform 0.2s ease;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
         cursor: pointer;
-        background-color: white !important; /* Add this line */
-
+        background-color: white !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
-    
+
     .menu-item-card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(214, 38, 22, 0.7);
     }
     
     .menu-item-card h4 {
@@ -280,8 +281,8 @@
     
     .option-selector {
         width: 100%;
-        background-color: #222;
-        color: white;
+        background-color: #dcd9e6;
+        color: black;
         border: 1px solid #444;
         border-radius: 0.5rem;
         padding: 0.5rem;
@@ -301,7 +302,7 @@
     }
     
     .modal-content {
-        background-color: #1a1a1a;
+        background-color: white;
         margin: 2rem auto;
         padding: 2rem;
         border-radius: 1rem;
@@ -314,7 +315,7 @@
         position: absolute;
         top: 1rem;
         right: 1rem;
-        color: white;
+        color: black;
         font-size: 1.5rem;
         cursor: pointer;
     }
@@ -366,7 +367,7 @@
     
     .drink-selection {
         display: none;
-        background-color: #222;
+        background-color: whitesmoke;
         border-radius: 0.5rem;
         padding: 1rem;
         margin-top: 0.5rem;
@@ -392,14 +393,14 @@
     }
     
     .vegetable-selection {
-        background-color: #222;
+        background-color: #dcd9e6;
         border-radius: 0.5rem;
         padding: 1rem;
         margin-bottom: 1rem;
     }
     
     .vegetable-selection h4 {
-        color: white;
+        color: black;
         margin-bottom: 0.75rem;
         font-size: 1rem;
         font-weight: 600;
@@ -416,7 +417,7 @@
     }
     
     .vegetable-checkbox label {
-        color: white;
+        color: black;
         cursor: pointer;
     }
     
@@ -503,21 +504,21 @@
     }
     
     .quantity-selector span {
-        color: white;
+        color: black;
         font-weight: 600;
     }
     
     .quantity-controls {
         display: flex;
         align-items: center;
-        background-color: #222;
+        background-color: #dcd9e6;
         border-radius: 0.5rem;
         overflow: hidden;
     }
     
     .quantity-btn {
-        background-color: #333;
-        color: white;
+        background-color: #dcd9e6;
+        color: rgb(0, 0, 0);
         border: none;
         width: 2.5rem;
         height: 2.5rem;
@@ -530,7 +531,7 @@
     }
     
     .quantity-btn:hover {
-        background-color: #444;
+        background-color: #6b6b6b;
     }
     
     .quantity-btn:disabled {
@@ -542,11 +543,11 @@
         width: 3rem;
         height: 2.5rem;
         text-align: center;
-        background-color: #222;
-        color: white;
+        background-color: #dcd9e6;
+        color: black;
         border: none;
-        border-left: 1px solid #444;
-        border-right: 1px solid #444;
+        border-left: 1px solid #a3a3a3;
+        border-right: 1px solid #a3a3a3;
         font-size: 1.1rem;
         -moz-appearance: textfield;
     }
@@ -601,8 +602,8 @@
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <img id="modal-image" class="modal-image" src="" alt="">
-        <h2 id="modal-title" class="text-white text-2xl font-bold mb-2"></h2>
-        <p id="modal-description" class="text-gray-400 mb-4"></p>
+        <h2 id="modal-title" class="text-black text-2xl font-bold mb-2"></h2>
+        <p id="modal-description" class="text-black mb-4"></p>
         
         <div id="modal-options">
             <!-- Options will be inserted here -->
