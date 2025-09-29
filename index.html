@@ -141,16 +141,7 @@
     }
     
     #home-backdrop {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('Backdrop.jpg');
-        background-size: cover;
-        background-position: center;
-        filter: blur(8px);
-        z-index: -1;
+        display: none; /* This removes the blurred image overlay */
     }
     
     #home-backdrop::after {
@@ -689,7 +680,7 @@
             <span class="font-semibold">Subtotal:</span>
             <span id="cart-subtotal">£0.00</span>
         </div>
-        <button id="checkout-button" class="w-full bg-[#D62616] text-white text-base font-semibold rounded py-3 hover:bg-[#e05a00]">
+        <button id="checkout-button" class="w-full bg-[#D62616] text-white text-base font-semibold rounded py-3 hover:bg-[#a01c10]">
             Checkout
         </button>
     </div>
