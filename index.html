@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -138,22 +137,23 @@
         position: relative;
         width: 100%;
         overflow: hidden;
+        background-image: url('Backdropp.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
-    
+
     #home-backdrop {
-        display: none; /* This removes the blurred image overlay */
-    }
-    
-    #home-backdrop::after {
-        content: '';
+        display: block;
         position: absolute;
         top: 0;
         left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.3);
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); /* Dark overlay for better text readability */
+        z-index: 0;
     }
-    
+
     #home-content {
         position: relative;
         min-height: 100vh;
@@ -438,10 +438,11 @@
         color: #121212;
     }
     
+    /* UPDATED: Bigger header buttons with more spacing */
     .nav-link {
-        font-size: 1.1rem;
+        font-size: 1.25rem !important; /* Increased from 1.1rem */
         font-weight: 600;
-        padding: 0.5rem 0.75rem;
+        padding: 0.75rem 1.25rem !important; /* Increased padding */
         transition: all 0.2s ease;
     }
     
@@ -449,10 +450,17 @@
         transform: translateY(-2px);
     }
     
+    /* UPDATED: Increased spacing in header nav container */
     .header-nav-container {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 2rem !important; /* Increased from 1rem */
+    }
+    
+    /* UPDATED: Bigger cart button */
+    #cart-button {
+        font-size: 1.1rem !important; /* Increased font size */
+        padding: 0.75rem 1.5rem !important; /* Increased padding */
     }
     
     @media (max-width: 767px) {
@@ -691,7 +699,7 @@
     <!-- Updated Header with Logo Placeholder and Enhanced Navigation -->
     <header class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 bg-white sticky top-0 z-30 header-shadow">        <div class="header-logo-container">
             <!-- CHANGED: Replaced text logo with image -->
-            <img src="Logo.png" alt="HotBird" class="h-12">
+            <img src="Logo.jpg" alt="HotBird" class="h-12">
         </div>
         <!-- Navigation and Cart Container -->
         <div class="header-nav-container">
@@ -716,12 +724,12 @@
                 <div class="max-w-4xl">
                     <!-- CHANGED: Increased font sizes for the heading -->
                     <h2 class="text-white text-6xl sm:text-7xl md:text-8xl font-extrabold leading-tight mb-8">
-                        <span class="righteous-font block mb-2">Fryin’ High</span>
+                        <span class="righteous-font block mb-2">Fryin' High</span>
                         <span class="text-[#D62616] righteous-font block">Since Day One</span>
                     </h2>
                     <!-- CHANGED: Removed horizontal padding classes -->
                     <p class="lato-font text-xl sm:text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed w-full">
-                        Deliciously bold, perfectly crispy, and full of flavor, our golden fried chicken, juicy wings and crispy fries are made to satisfy every craving. Fresh ingredients, fiery taste, and fun in every bite - that’s the hot bird promise.
+                        Deliciously bold, perfectly crispy, and full of flavor, our golden fried chicken, juicy wings and crispy fries are made to satisfy every craving. Fresh ingredients, fiery taste, and fun in every bite - that's the hot bird promise.
                     </p>
                         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 mb-6 home-buttons">
                             <button id="order-now-btn" class="bg-[#D62616] text-black text-lg sm:text-xl font-semibold rounded-xl px-8 py-4 hover:bg-[#e05a00] transition-colors">
@@ -787,13 +795,13 @@
         <section id="about" class="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 text-center text-lg sm:text-xl text-black leading-relaxed">
             <h3 class="font-semibold text-blacktext-3xl sm:text-4xl mb-8">Our Story</h3>
             <p class="mb-8">
-                Welcome to Hot Bird, where chicken isn’t just food - it’s an adventure
+                Welcome to Hot Bird, where chicken isn't just food - it's an adventure
             </p>
             <p class="mb-8">
                 Crispy, juicy, and packed with bold flavors, our chicken and fries are here to make your taste buds tingle
             </p>
             <p>
-                Every bite is fun, fiery, and impossible to forget.
+                Every bite is fun, fiery, and impossible to forget.
             </p>
         </section>
 
@@ -1520,6 +1528,9 @@
             return;
         }
 
+        // NEW: Close cart drawer when proceeding to checkout
+        closeCartDrawer();
+        
         mainContent.style.display = 'none';
         checkoutPage.style.display = 'block';
 
