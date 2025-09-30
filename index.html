@@ -137,10 +137,18 @@
         position: relative;
         width: 100%;
         overflow: hidden;
-        background-image: url('Backdroppp.jpg');
+        /* Default background for desktop */
+        background-image: url('BACKDROPP.png');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+    }
+
+    /* Mobile background image */
+    @media (max-width: 767px) {
+        #home {
+            background-image: url('backdropm.jpg');
+        }
     }
 
     #home-backdrop {
@@ -585,6 +593,114 @@
     #clear-cart:disabled:hover {
         background-color: transparent;
     }
+
+    /* NEW: Mobile hamburger menu styles */
+    .mobile-menu-button {
+        display: none; /* Hidden by default on desktop */
+        background: none;
+        border: none;
+        color: #D62616;
+        font-size: 2rem;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        z-index: 100;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-menu.active {
+        display: flex;
+    }
+
+    .mobile-menu nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .mobile-menu .nav-link {
+        font-size: 1.5rem !important;
+        color: white;
+        padding: 1rem 2rem !important;
+    }
+
+    .mobile-menu .nav-link.active-section {
+        color: white !important;
+        background-color: #D62616 !important;
+    }
+
+    .close-mobile-menu {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    @media (max-width: 767px) {
+        /* Show hamburger menu button on mobile */
+        .mobile-menu-button {
+            display: block !important; /* Force show on mobile */
+        }
+        
+        .header-logo-container {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 31;
+        }
+        
+        .mobile-menu-button {
+            order: -1; /* This moves it to the left */
+            z-index: 32;
+        }
+        
+        .header-nav-container {
+            display: flex;
+            justify-content: flex-end;
+            flex: 1;
+        }
+        
+        /* Adjust header layout for mobile */
+        header {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* The rest of your existing mobile styles */
+        .header-logo-text {
+            display: none;
+        }
+        
+        .header-nav-container nav {
+            display: none;
+        }
+        
+        #home-content h2 {
+            font-size: 3.5rem !important;
+        }
+        
+        #home-content p {
+            font-size: 1.4rem !important;
+        }
+    }
 </style>
 </head>
 
@@ -595,6 +711,19 @@
                 type="range" min="-30" max="30" value="0" class="image-control-slider" id="image-position-slider">
             <button id="reset-position" class="bg-[#D62616] text-white text-xs px-2 py-1 rounded">Reset</button> </div>
     </div>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu" class="mobile-menu">
+    <button class="close-mobile-menu">
+        <i class="fas fa-times"></i>
+    </button>
+    <nav>
+        <a class="nav-link active-section" href="#home">Home</a>
+        <a class="nav-link" href="#menu">Menu</a>
+        <a class="nav-link" href="#about">About</a>
+        <a class="nav-link" href="#contact">Contact</a>
+    </nav>
+</div>
 
 <!-- Item Modal -->
 <div id="item-modal" class="item-modal">
@@ -697,10 +826,17 @@
 <!-- Main Content -->
 <div id="main-content">
     <!-- Updated Header with Logo Placeholder and Enhanced Navigation -->
-    <header class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 bg-white sticky top-0 z-30 header-shadow">        <div class="header-logo-container">
+    <header class="flex items-center justify-between px-4 sm:px-6 md:px-10 py-4 bg-white sticky top-0 z-30 header-shadow">        
+        <div class="header-logo-container">
             <!-- CHANGED: Replaced text logo with image -->
             <img src="Logo.jpg" alt="HotBird" class="h-12">
         </div>
+        
+        <!-- NEW: Mobile hamburger menu button -->
+        <button class="mobile-menu-button md:hidden">
+            <i class="fas fa-bars"></i>
+        </button>
+        
         <!-- Navigation and Cart Container -->
         <div class="header-nav-container">
             <nav class="hidden md:flex space-x-4 text-[#D62616] items-center">
@@ -1094,8 +1230,18 @@
     // NEW: Clear cart button
     const clearCartButton = document.getElementById('clear-cart');
 
+    // NEW: Mobile menu elements
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const closeMobileMenu = document.querySelector('.close-mobile-menu');
+    const mobileNavLinks = mobileMenu.querySelectorAll('.nav-link');
+
     // Current item being viewed in modal
     let currentModalItem = null;
+
+    // NEW: Scroll spy functionality
+    let sections = [];
+    let navLinks = [];
 
     // Load menu items from JSON data
     function loadMenuItems() {
@@ -1703,6 +1849,76 @@
         positionValue.textContent = value + '%';
     }
     
+    // NEW: Scroll spy functionality
+    function initScrollSpy() {
+        // Get all sections that have an ID
+        sections = document.querySelectorAll('section[id]');
+        
+        // Get all navigation links
+        navLinks = document.querySelectorAll('.nav-link');
+        
+        // Create an Intersection Observer
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Remove active class from all links
+                    navLinks.forEach(link => {
+                        link.classList.remove('active-section');
+                    });
+                    
+                    // Get the ID of the visible section
+                    const id = entry.target.getAttribute('id');
+                    
+                    // Find the corresponding link and add active class
+                    const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active-section');
+                    }
+                }
+            });
+        }, {
+            threshold: 0.5, // Trigger when 50% of the section is visible
+            rootMargin: '-20% 0px -20% 0px' // Adjust the root margin for better detection
+        });
+        
+        // Observe each section
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    }
+    
+    // NEW: Mobile menu functionality
+    // NEW: Mobile menu functionality
+    function initMobileMenu() {
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Close mobile menu
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close mobile menu when clicking on a link
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+    
     // Initialize the page
     function init() {
         // Load menu items
@@ -1875,6 +2091,12 @@
                 updateModalPrices(currentModalItem, basePrice);
             }
         });
+        
+        // NEW: Initialize scroll spy
+        initScrollSpy();
+        
+        // NEW: Initialize mobile menu
+        initMobileMenu();
     }
 
     // Run initialization when DOM is loaded
@@ -1906,4 +2128,3 @@
 </body>
 
 </html>
-
