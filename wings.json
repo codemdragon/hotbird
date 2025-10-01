@@ -3,8 +3,8 @@
     {
       "name": "Chicken Tenders or Wings",
       "description": "Chicken wings or tenders with any 1 sauce",
-      "image": "images/Tenders & Wings.jpg",
-      "tags": ["Wings/tenders", "chicken"],
+      "image": "images/Wings.png",
+      "tags": ["wings", "chicken"],
       "mealPriceModifier": 2.50,
       "options": [
         {"name": "5 piece", "price": 5.00},
