@@ -244,14 +244,13 @@
         flex: 0 0 auto;
         white-space: nowrap;
     }
-    
     .menu-item-image {
         height: 260px;
         width: 100%;
-        object-fit: cover;
-        /* Default: cut 20% off the top */
-        object-position: 50% calc(var(--image-position-y, 0%) + 55%);
+        object-fit: contain; 
+        object-position: center;
     }
+
 
     /* D-tag: keep custom positioning, no crop */
     .menu-item-image.d-tag-image {
@@ -962,6 +961,7 @@
             <p class="text-center text-gray-400 text-lg sm:text-xl mb-12">Discover our delicious selection of kebabs, burgers and more</p>
             
             <!-- Search and Filters -->
+            <!-- Search and Filters -->
             <div class="mb-12">
                 <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
                     <div class="relative w-full sm:w-80">
@@ -974,12 +974,11 @@
                     <h4 class="text-center text-[#D62616] text-xl mb-4">Filter by Category</h4>
                     <div class="tag-filters-container">
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black active" data-tag="all">All</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbuckets">hotbuckets</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbirds">hotbirds</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbuckets">Hot Buckets</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbirds">Hot Birds</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="wings">Wingin' it</button>
-                        <!-- Combined category filters -->
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="Drinks">Drinks</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="Hot bird Sauces">Hot bird Sauces</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="drinks">Drinks</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="sauces">Sauces & Addons</button>
                     </div>
                 </div>
             </div>
@@ -1524,6 +1523,7 @@
     }
 
     // Filter menu items based on search and tags - FIXED VERSION
+    // Filter menu items based on search and tags - FIXED VERSION
     function filterMenuItems() {
         const searchTerm = searchInput.value.toLowerCase();
         const activeTag = document.querySelector('.tag-filter.active')?.getAttribute('data-tag') || 'all';
@@ -1541,18 +1541,9 @@
             
             let matchesTag = activeTag === 'all';
             
-            // Handle combined categories
-            if (activeTag === "Drinks") {
-                matchesTag = item.tags.includes("Drinks");
-            } else if (activeTag === "Hot bird Sauces") {
-                matchesTag = item.tags.includes("Hot bird Sauces");
-            } else if (activeTag !== 'all') {
+            // Check if item has the active tag
+            if (activeTag !== 'all') {
                 matchesTag = item.tags.includes(activeTag);
-            }
-            
-            // If "All" is selected, show all items regardless of search term
-            if (activeTag === 'all') {
-                return matchesSearch;
             }
             
             return matchesSearch && matchesTag;
