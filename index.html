@@ -1292,10 +1292,6 @@
     // Current item being viewed in modal
     let currentModalItem = null;
 
-    // NEW: Scroll spy functionality
-    let sections = [];
-    let navLinks = [];
-
     // Load menu items from JSON data
     function loadMenuItems() {
         let allItems = [];
@@ -1523,7 +1519,6 @@
     }
 
     // Filter menu items based on search and tags - FIXED VERSION
-    // Filter menu items based on search and tags - FIXED VERSION
     function filterMenuItems() {
         const searchTerm = searchInput.value.toLowerCase();
         const activeTag = document.querySelector('.tag-filter.active')?.getAttribute('data-tag') || 'all';
@@ -1701,8 +1696,6 @@
     // Show checkout page
     function showCheckoutPage() {
         if (cart.length === 0) {
-            // Using a custom modal/alert in the future would be better than the browser's default alert.
-            // For now, this provides the necessary feedback.
             const customAlert = document.createElement('div');
             customAlert.innerHTML = `
                 <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; display: flex; align-items: center; justify-content: center;">
@@ -1815,7 +1808,6 @@
     }
 
     // Handle form submission
-    // Handle form submission
     async function handleFormSubmit(e) {
     e.preventDefault();
 
@@ -1841,10 +1833,8 @@
         total: total.toFixed(2)
     };
 
-
     const confirmationMessage = document.getElementById('confirmation-message');
     const orderConfirmation   = document.getElementById('order-confirmation');
-
 
     // send to backend only if API_BASE is set
     if (API_BASE) {
@@ -1883,7 +1873,6 @@
         }, 2000);
     }
     orderConfirmation.classList.remove('hidden');
-
     }
     
     // Handle image position adjustment
@@ -1892,45 +1881,38 @@
         positionValue.textContent = value + '%';
     }
     
-    // NEW: Scroll spy functionality
+    // NEW: Scroll spy functionality - SIMPLIFIED AND WORKING
     function initScrollSpy() {
-        // Get all sections that have an ID
-        sections = document.querySelectorAll('section[id]');
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
         
-        // Get all navigation links
-        navLinks = document.querySelectorAll('.nav-link');
-        
-        // Create an Intersection Observer
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Remove active class from all links
-                    navLinks.forEach(link => {
-                        link.classList.remove('active-section');
-                    });
-                    
-                    // Get the ID of the visible section
-                    const id = entry.target.getAttribute('id');
-                    
-                    // Find the corresponding link and add active class
-                    const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
-                    if (activeLink) {
-                        activeLink.classList.add('active-section');
-                    }
+        function updateActiveLink() {
+            let current = '';
+            const scrollPos = window.pageYOffset;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    current = sectionId;
                 }
             });
-        }, {
-            threshold: 0.5, // Trigger when 50% of the section is visible
-            rootMargin: '-20% 0px -20% 0px' // Adjust the root margin for better detection
-        });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active-section');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active-section');
+                }
+            });
+        }
         
-        // Observe each section
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+        window.addEventListener('scroll', updateActiveLink);
+        // Initial call to set active section on page load
+        updateActiveLink();
     }
-    
-    // NEW: Mobile menu functionality
+
     // NEW: Mobile menu functionality
     function initMobileMenu() {
         // Toggle mobile menu
@@ -1961,7 +1943,7 @@
             }
         });
     }
-    
+
     // Initialize the page
     function init() {
         // Load menu items
@@ -2135,37 +2117,44 @@
             }
         });
         
-        // NEW: Initialize scroll spy
+        // Initialize scroll spy
         initScrollSpy();
         
-        // NEW: Initialize mobile menu
+        // Initialize mobile menu
         initMobileMenu();
     }
 
-    // Run initialization when DOM is loaded
-    // Run initialization when DOM is loaded
+    // DOM Content Loaded
     document.addEventListener('DOMContentLoaded', async () => {
-        await loadAllJSON();  // make sure all JSON files are fetched
+        // Load JSON and init app
+        await loadAllJSON();
         init();
 
-        // Smooth scrolling for navigation (bind once after DOM is ready)
+        // Smooth scrolling for navigation
         document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
 
-            if (targetSection) {
-            targetSection.scrollIntoView({ behavior: 'smooth' });
-
-            // Update active navigation link
-            document.querySelectorAll('.nav-link').forEach(navLink => {
-                navLink.classList.remove('active-section');
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Update active link immediately
+                    document.querySelectorAll('.nav-link').forEach(navLink => {
+                        navLink.classList.remove('active-section');
+                    });
+                    link.classList.add('active-section');
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu.classList.contains('active')) {
+                        mobileMenu.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                    }
+                }
             });
-            link.classList.add('active-section');
-            }
         });
-    });
     });
 </script>
 </body>
