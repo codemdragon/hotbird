@@ -1,0 +1,154 @@
+{
+  "items": [
+    {
+      "name": "Bird's Feast Combo",
+      "description": "Perfect for sharing - includes tenders, wings, fries, and drinks",
+      "image": "images/Birds Feast Combo.jpg",
+      "price": 18.50,
+      "tags": ["hotdeals", "combo"],
+      "mealPriceModifier": 0.00,
+      "showSlider": false,
+      "sauces": false,
+      "vegetables": false,
+      "comboItems": [
+        {
+          "name": "Classic Hot Tenders",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Chicken Tenders or Wings",
+          "option": "10 piece",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Fries",
+          "quantity": 2,
+          "includedInCombo": true
+        },
+        {
+          "name": "Pepsi",
+          "quantity": 2,
+          "includedInCombo": true
+        }
+      ]
+    },
+    {
+      "name": "Burger Bonanza Deal",
+      "description": "Two burgers, fries, and drinks - the ultimate burger experience",
+      "image": "images/Burger Bonanza Deal.jpg",
+      "price": 16.00,
+      "tags": ["hotdeals", "combo"],
+      "mealPriceModifier": 0.00,
+      "showSlider": false,
+      "sauces": false,
+      "vegetables": false,
+      "comboItems": [
+        {
+          "name": "Single Smash Beef Burger",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Nash hot bird Burger",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Fries",
+          "quantity": 2,
+          "includedInCombo": true
+        },
+        {
+          "name": "Coca cola original",
+          "quantity": 2,
+          "includedInCombo": true
+        }
+      ]
+    },
+    {
+      "name": "Family Feast Deal",
+      "description": "Everything for the whole family - burgers, tenders, wings, and more",
+      "image": "images/Family Feast Deal.jpg",
+      "price": 32.00,
+      "tags": ["hotdeals", "combo"],
+      "mealPriceModifier": 0.00,
+      "showSlider": false,
+      "sauces": false,
+      "vegetables": false,
+      "comboItems": [
+        {
+          "name": "Double Smash Beef Burger",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Nash Crunch Burger",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Hot Tenders Platter",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Chicken Tenders or Wings",
+          "option": "15 piece",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Fries",
+          "quantity": 3,
+          "includedInCombo": true
+        },
+        {
+          "name": "Assorted Drinks",
+          "quantity": 4,
+          "includedInCombo": true
+        }
+      ]
+    },
+    {
+      "name": "Wing Lover's Combo",
+      "description": "All the wings you can handle with dips and fries",
+      "image": "images/Wing Lovers Combo.jpg",
+      "price": 22.00,
+      "tags": ["hotdeals", "combo"],
+      "mealPriceModifier": 0.00,
+      "showSlider": false,
+      "sauces": false,
+      "vegetables": false,
+      "comboItems": [
+        {
+          "name": "Chicken Tenders or Wings",
+          "option": "20 piece",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Spicy Hot Tenders",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Fries",
+          "quantity": 2,
+          "includedInCombo": true
+        },
+        {
+          "name": "Onion Rings",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Assorted Drinks",
+          "quantity": 2,
+          "includedInCombo": true
+        }
+      ]
+    }
+  ]
+}

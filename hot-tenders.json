@@ -1,0 +1,37 @@
+{
+  "items": [
+    {
+      "name": "Classic Hot Tenders",
+      "description": "Crispy, juicy chicken tenders with your choice of dip",
+      "image": "images/Classic Hot Tenders.jpg",
+      "price": 6.50,
+      "tags": ["hottenders", "chicken"],
+      "mealPriceModifier": 2.50,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false
+    },
+    {
+      "name": "Spicy Hot Tenders",
+      "description": "Fiery chicken tenders with a spicy kick and your choice of dip",
+      "image": "images/Spicy Hot Tenders.jpg",
+      "price": 7.00,
+      "tags": ["hottenders", "chicken", "spicy"],
+      "mealPriceModifier": 2.50,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false
+    },
+    {
+      "name": "Hot Tenders Platter",
+      "description": "8 pieces of our signature tenders with 2 dips and fries",
+      "image": "images/Hot Tenders Platter.jpg",
+      "price": 12.00,
+      "tags": ["hottenders", "chicken"],
+      "mealPriceModifier": 0.00,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false
+    }
+  ]
+}
