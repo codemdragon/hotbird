@@ -198,7 +198,7 @@
         margin-bottom: 1.5rem !important;
     }
     
-    /* CHANGED: Removed horizontal padding and max-width constraints */
+    /* CHANGED: Removed horizontal padding classes */
     #home-content p {
         font-size: 1.75rem !important; /* Increased from 1.5rem */
         margin-bottom: 1.5rem !important;
@@ -767,6 +767,17 @@
             font-size: 1.4rem !important;
         }
     }
+
+    /* NEW: Combo items styles */
+    .combo-items-section {
+        background-color: #f8f9fa !important;
+        border-left: 4px solid #D62616;
+    }
+
+    .combo-items-section h4 {
+        color: #D62616 !important;
+        font-weight: 700;
+    }
 </style>
 </head>
 
@@ -977,6 +988,8 @@
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbuckets">Hot Buckets</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbirds">Hot Birds</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="wings">Wingin' it</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hottenders">Hot Tenders</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotdeals">Hot Deals</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="drinks">Drinks</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="sauces">Sauces & Addons</button>
                     </div>
@@ -1163,6 +1176,7 @@
         "hotbuckets": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
         "hotbirds": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
         "wings": ["Mango & Lime", "Korean BBQ", "Peri Peri", "Mango Habanero", "Hot Honey Siracha", "Buffalo Kick"],
+        "hottenders": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"]
     };
 
     // Drinks options (unchanged)
@@ -1181,7 +1195,9 @@
         "hotbirds.json",
         "wings.json",
         "drinks.json",
-        "sauces.json"
+        "sauces.json",
+        "hot-tenders.json",      // NEW
+        "hot-deals.json"         // NEW
     ];
 
     let menuData = {};
@@ -1292,6 +1308,28 @@
     // Current item being viewed in modal
     let currentModalItem = null;
 
+    // NEW: Function to render combo items in modal
+    function renderComboItems(comboItems) {
+        if (!comboItems || comboItems.length === 0) return '';
+        
+        let html = '<div class="combo-items-section mt-4 p-4 bg-gray-100 rounded-lg">';
+        html += '<h4 class="font-semibold text-black mb-3">Combo Includes:</h4>';
+        html += '<ul class="space-y-2">';
+        
+        comboItems.forEach(item => {
+            const optionText = item.option ? ` (${item.option})` : '';
+            html += `
+                <li class="flex justify-between items-center text-sm">
+                    <span class="text-black">${item.quantity}x ${item.name}${optionText}</span>
+                    <span class="text-green-600 font-semibold"></span>
+                </li>
+            `;
+        });
+        
+        html += '</ul></div>';
+        return html;
+    }
+
     // Load menu items from JSON data
     function loadMenuItems() {
         let allItems = [];
@@ -1399,6 +1437,12 @@
         // Clear previous options
         modalOptions.innerHTML = '';
 
+        // NEW: Add combo items display if it's a combo
+        if (item.comboItems && item.comboItems.length > 0) {
+            const comboItemsHTML = renderComboItems(item.comboItems);
+            modalDescription.insertAdjacentHTML('afterend', comboItemsHTML);
+        }
+
         // ----- OPTIONS LOGIC -----
         const hasOptions = item.options && item.options.length > 0;
         let selectedOptionIndex = 0;
@@ -1457,7 +1501,7 @@
 
                 // Determine the label text based on category
                 let labelText = 'Sauce';
-                if (['hotbuckets', 'hotbirds'].includes(sauceCategory)) {
+                if (['hotbuckets', 'hotbirds', 'hottenders'].includes(sauceCategory)) {
                     labelText = 'Dip';
                 } else if (['wings'].includes(sauceCategory)) {
                     labelText = 'Flavour';
@@ -1588,13 +1632,18 @@
         if (selectedVegetables.length > 0) displayName += ` with ${selectedVegetables.join(', ')}`;
         if (isChipsDrink) displayName += ` with Chips and ${selectedDrink}`;
         
+        // NEW: Add combo indicator for receipt
+        if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
+            displayName += ` [Combo Deal]`;
+        }
+
         // Check if item already exists in cart
         const existingItem = cart.find(item => item.name === displayName);
         
         if (existingItem) {
             existingItem.quantity += quantity;
         } else {
-            cart.push({
+            const cartItem = {
                 name: displayName,
                 price,
                 quantity,
@@ -1604,7 +1653,15 @@
                 selectedVegetables,
                 selectedDrink: isChipsDrink ? selectedDrink : null,
                 mealPriceModifier: isChipsDrink ? currentModalItem.mealPriceModifier : 0
-            });
+            };
+            
+            // NEW: Store combo items for backend processing
+            if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
+                cartItem.isCombo = true;
+                cartItem.comboItems = currentModalItem.comboItems;
+            }
+            
+            cart.push(cartItem);
         }
         
         updateCart();
@@ -1775,23 +1832,35 @@
         const backendItems = [];
 
         cart.forEach(item => {
-            if (item.isChipsDrink) {
-            // main item without the modifier
-            backendItems.push({
-                name: item.name.replace(/ with Chips and.*$/, ''), // strip the trailing text
-                price: item.price - item.mealPriceModifier,         // base price only
-                quantity: item.quantity,
-                selectedOption: item.selectedOption,
-                selectedSauce: item.selectedSauce,
-                selectedVegetables: item.selectedVegetables
-            });
+            // Handle combo items separately
+            if (item.isCombo && item.comboItems) {
+                // Add the main combo item
+                backendItems.push({
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity,
+                    isCombo: true,
+                    comboItems: item.comboItems
+                });
+            } 
+            // Handle regular items with chips & drink
+            else if (item.isChipsDrink) {
+                // main item without the modifier
+                backendItems.push({
+                    name: item.name.replace(/ with Chips and.*$/, ''),
+                    price: item.price - item.mealPriceModifier,
+                    quantity: item.quantity,
+                    selectedOption: item.selectedOption,
+                    selectedSauce: item.selectedSauce,
+                    selectedVegetables: item.selectedVegetables
+                });
 
-            // separate line for chips & drink
-            backendItems.push({
-                name: `Chips & Drink (${item.selectedDrink})`,
-                price: item.mealPriceModifier,
-                quantity: item.quantity
-            });
+                // separate line for chips & drink
+                backendItems.push({
+                    name: `Chips & Drink (${item.selectedDrink})`,
+                    price: item.mealPriceModifier,
+                    quantity: item.quantity
+                });
             } else {
                 backendItems.push({
                     name: item.name,
