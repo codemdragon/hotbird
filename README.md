@@ -1,3 +1,6 @@
+Here's the updated README.md file with all the new changes:
+
+```markdown
 # HotBird – Menu Management Guide
 
 This guide explains how to manage the menu items for the **HotBird website** by editing the associated JSON files.
@@ -15,6 +18,8 @@ The menu items are organized into several JSON files, each representing a catego
 * `wings.json`
 * `drinks.json`
 * `sauces.json`
+* `hot-tenders.json` ⭐ **NEW**
+* `hot-deals.json` ⭐ **NEW**
 
 ⚠️ **Important:** All JSON files must be located in the same directory as `index.html`.
 Images for menu items are stored in the `images/` folder, so the `image` field should point to `images/YourImageName.jpg`.
@@ -23,8 +28,7 @@ Images for menu items are stored in the `images/` folder, so the `image` field s
 
 ## 2. Understanding a Menu Item JSON Object
 
-Example:
-
+### Standard Item Example:
 ```json
 {
   "name": "Chicken Tenders or Wings",
@@ -44,6 +48,44 @@ Example:
 }
 ```
 
+### Combo Deal Example (NEW):
+```json
+{
+  "name": "Bird's Feast Combo",
+  "description": "Perfect for sharing - includes tenders, wings, fries, and drinks",
+  "image": "images/Birds Feast Combo.jpg",
+  "price": 18.50,
+  "tags": ["hotdeals", "combo"],
+  "mealPriceModifier": 0.00,
+  "showSlider": false,
+  "sauces": false,
+  "vegetables": false,
+  "comboItems": [
+    {
+      "name": "Classic Hot Tenders",
+      "quantity": 1,
+      "includedInCombo": true
+    },
+    {
+      "name": "Chicken Tenders or Wings",
+      "option": "10 piece",
+      "quantity": 1,
+      "includedInCombo": true
+    },
+    {
+      "name": "Fries",
+      "quantity": 2,
+      "includedInCombo": true
+    },
+    {
+      "name": "Pepsi",
+      "quantity": 2,
+      "includedInCombo": true
+    }
+  ]
+}
+```
+
 ### Field Explanations
 
 * **name**: Name of the menu item. *(string)*
@@ -56,6 +98,7 @@ Example:
   * Special tags:
     * `"D"` → Drinks (centered images, scaled properly for cans).
     * `"M"` → Milkshakes (image scaled fully outward to show full picture on all screen sizes).
+    * `"combo"` → Combo deals (shows included items in modal).
 * **mealPriceModifier**: Extra cost when upgrading to a meal. *(decimal)*
 * **options** *(optional)*: Variations of the item.
   * **Special behavior:**
@@ -64,6 +107,11 @@ Example:
 * **showSlider**: Always set to `false` (legacy field).
 * **sauces**: `true`/`false` – whether customer can choose sauces.
 * **vegetables**: `true`/`false` – whether customer can choose vegetables.
+* **comboItems** ⭐ **NEW**: Array of items included in a combo deal. Only for `hotdeals` category.
+  * **name**: Name of included item (must match existing menu item names)
+  * **quantity**: How many of this item are included
+  * **option** *(optional)*: Specific option/variant if applicable
+  * **includedInCombo**: Always `true`
 
 ---
 
@@ -78,6 +126,7 @@ Example:
 
 * **Drinks** (`"D"` tag): Canned drinks centered properly.
 * **Milkshakes** (`"M"` tag): Full image always shown, scaled outward.
+* **Combo Deals** (`"combo"` tag): Show included items list when clicked.
 * **All Other Items**: Positioned according to Website Manager's preferences.
 
 ---
@@ -87,10 +136,11 @@ Example:
 1. Identify which JSON file contains the category.
 2. Copy an existing item as a template.
 3. Edit `name`, `description`, `image`, `tags`, `price/options`.
-4. Save the JSON file.
-5. Add the image file (1200×1200 px) to the `images/` folder.
-6. **Use the JSON Converter Tool** (see below) to validate and format your JSON.
-7. Refresh the website to see changes.
+4. **For combo deals**: Add `comboItems` array with included items.
+5. Save the JSON file.
+6. Add the image file (1200×1200 px) to the `images/` folder.
+7. **Use the JSON Converter Tool** (see below) to validate and format your JSON.
+8. Refresh the website to see changes.
 
 ---
 
@@ -106,6 +156,7 @@ This tool provides:
 - **Template generation** - Start with pre-built item templates
 - **Formatting assistance** - Ensure proper JSON structure
 - **Copy-paste functionality** - Easy transfer to your files
+- **Combo item support** ⭐ **NEW** - Add included items to combo deals
 
 **Recommended workflow:** Use the converter to create/validate items, then copy the output into your JSON files.
 
@@ -114,7 +165,6 @@ This tool provides:
 ## 6. Examples
 
 ### Drink Example (Pepsi)
-
 ```json
 {
   "name": "Pepsi",
@@ -130,7 +180,6 @@ This tool provides:
 ```
 
 ### Milkshake Example
-
 ```json
 {
   "name": "Chocolate Milkshake",
@@ -146,7 +195,6 @@ This tool provides:
 ```
 
 ### Burger with Options Example
-
 ```json
 {
   "name": "Double Smash Beef Burger",
@@ -161,14 +209,74 @@ This tool provides:
 }
 ```
 
+### Hot Tenders Example ⭐ **NEW**
+```json
+{
+  "name": "Classic Hot Tenders",
+  "description": "Crispy, juicy chicken tenders with your choice of dip",
+  "image": "images/Classic Hot Tenders.jpg",
+  "price": 6.50,
+  "tags": ["hottenders", "chicken"],
+  "mealPriceModifier": 2.50,
+  "showSlider": false,
+  "sauces": true,
+  "vegetables": false
+}
+```
+
+### Combo Deal Example ⭐ **NEW**
+```json
+{
+  "name": "Family Feast Deal",
+  "description": "Everything for the whole family - burgers, tenders, wings, and more",
+  "image": "images/Family Feast Deal.jpg",
+  "price": 32.00,
+  "tags": ["hotdeals", "combo"],
+  "mealPriceModifier": 0.00,
+  "showSlider": false,
+  "sauces": false,
+  "vegetables": false,
+  "comboItems": [
+    {
+      "name": "Double Smash Beef Burger",
+      "quantity": 1,
+      "includedInCombo": true
+    },
+    {
+      "name": "Nash Crunch Burger",
+      "quantity": 1,
+      "includedInCombo": true
+    },
+    {
+      "name": "Hot Tenders Platter",
+      "quantity": 1,
+      "includedInCombo": true
+    },
+    {
+      "name": "Chicken Tenders or Wings",
+      "option": "15 piece",
+      "quantity": 1,
+      "includedInCombo": true
+    },
+    {
+      "name": "Fries",
+      "quantity": 3,
+      "includedInCombo": true
+    },
+    {
+      "name": "Assorted Drinks",
+      "quantity": 4,
+      "includedInCombo": true
+    }
+  ]
+}
+```
+
 ---
 
 ## 7. Order Payload Examples for Backend
 
-These show how the front-end sends orders to the backend with different combinations:
-
 #### 1. Single Smash Beef Burger (no meal):
-
 ```json
 {
   "deliveryType": "collection",
@@ -191,7 +299,6 @@ These show how the front-end sends orders to the backend with different combinat
 ```
 
 #### 2. Chicken Tenders with Chips & Drink (Sprite):
-
 ```json
 {
   "deliveryType": "collection",
@@ -218,8 +325,7 @@ These show how the front-end sends orders to the backend with different combinat
 }
 ```
 
-#### 3. Samosas (Chicken) with Chips & Drink:
-
+#### 3. Combo Deal Order ⭐ **NEW**:
 ```json
 {
   "deliveryType": "collection",
@@ -230,18 +336,36 @@ These show how the front-end sends orders to the backend with different combinat
   },
   "items": [
     {
-      "name": "Samosas (3 Pieces) (Chicken)",
-      "price": 2.50,
+      "name": "Bird's Feast Combo [Combo Deal]",
+      "price": 18.50,
       "quantity": 1,
-      "selectedOption": "Chicken"
-    },
-    {
-      "name": "Chips & Drink (Pepsi)",
-      "price": 2.50,
-      "quantity": 1
+      "isCombo": true,
+      "comboItems": [
+        {
+          "name": "Classic Hot Tenders",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Chicken Tenders or Wings",
+          "option": "10 piece",
+          "quantity": 1,
+          "includedInCombo": true
+        },
+        {
+          "name": "Fries",
+          "quantity": 2,
+          "includedInCombo": true
+        },
+        {
+          "name": "Pepsi",
+          "quantity": 2,
+          "includedInCombo": true
+        }
+      ]
     }
   ],
-  "total": "5.00"
+  "total": "18.50"
 }
 ```
 
@@ -252,10 +376,28 @@ These show how the front-end sends orders to the backend with different combinat
 * If chips/drink is added, you'll always see a second line `{ "name": "Chips & Drink (DrinkName)", "price": mealPriceModifier, "quantity": sameAsMainItem }`.
 * If no chips/drink, there's no second line.
 * Sauces/vegetables are only on the main line.
+* **Combo Deals** ⭐ **NEW**: Include `isCombo: true` and `comboItems` array with all included items for kitchen reference.
 
 ---
 
-## 8. Backups & Support
+## 8. New Categories Overview ⭐ **NEW**
+
+### Hot Tenders Category
+- Regular menu items (individual pricing)
+- Can be added to combo deals
+- Support sauce selection
+- Meal upgrades available
+
+### Hot Deals Category (Combo Deals)
+- **Bundled pricing** (not sum of individual items)
+- Show included items when clicked in modal
+- **Receipt indication**: `[Combo Deal]` suffix
+- **Backend payload**: Includes all combo items for kitchen reference
+- No meal upgrades (already complete meals)
+
+---
+
+## 9. Backups & Support
 
 * Always **keep a backup** of JSON files before making changes.
 * If something breaks, restore the previous backup.
@@ -264,7 +406,7 @@ These show how the front-end sends orders to the backend with different combinat
 
 ---
 
-## 9. Deploying Changes to Vercel
+## 10. Deploying Changes to Vercel
 
 The site is automatically deployed from this GitHub repository using Vercel.
 
@@ -283,7 +425,7 @@ The site is automatically deployed from this GitHub repository using Vercel.
 
 ---
 
-## 10. API Integration (Future-Proofing)
+## 11. API Integration (Future-Proofing)
 
 The front-end code is already set up to talk to a backend API when it becomes available:
 
@@ -312,6 +454,25 @@ No other code changes are needed — just update the `API_BASE` value.
 * **JSON Converter Tool:** [https://json-convertor-hot-bird.vercel.app](https://json-convertor-hot-bird.vercel.app)
 * **Image Size:** 1200×1200 px
 * **Image Folder:** `images/`
-* **Special Tags:** `"D"` for drinks, `"M"` for milkshakes
+* **Special Tags:** 
+  - `"D"` for drinks
+  - `"M"` for milkshakes  
+  - `"combo"` for combo deals
+* **New Categories:** `hottenders`, `hotdeals`
 * **Meal Upgrade:** Use `mealPriceModifier` field
+* **Combo Items:** Use `comboItems` array for bundled deals
 * **Validation:** Always test JSON at [jsonlint.com](https://jsonlint.com) or use our converter tool
+```
+
+## Key Updates Made:
+
+1. **Added New JSON Files**: Added `hot-tenders.json` and `hot-deals.json` to the file list
+2. **New Category Examples**: Added comprehensive examples for Hot Tenders and Combo Deals
+3. **Combo Items Field**: Documented the new `comboItems` array structure
+4. **Updated Order Payloads**: Added combo deal order example for backend
+5. **Category Overview**: Added section explaining the two new categories
+6. **Special Tags**: Added `"combo"` tag documentation
+7. **Quick Reference**: Updated with new categories and features
+8. **Visual Indicators**: Used ⭐ **NEW** markers to highlight recent additions
+
+The README now fully documents the new Hot Tenders and Hot Deals functionality while maintaining all existing documentation.
