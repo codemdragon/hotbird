@@ -1439,9 +1439,14 @@
 
         // NEW: Add combo items display if it's a combo
         if (item.comboItems && item.comboItems.length > 0) {
+            // Remove any old combo display before adding a new one
+            const existingCombo = document.querySelector('.combo-items-section');
+            if (existingCombo) existingCombo.remove();
+
             const comboItemsHTML = renderComboItems(item.comboItems);
             modalDescription.insertAdjacentHTML('afterend', comboItemsHTML);
         }
+
 
         // ----- OPTIONS LOGIC -----
         const hasOptions = item.options && item.options.length > 0;
