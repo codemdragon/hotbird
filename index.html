@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -334,7 +333,7 @@
     .modal-option label {
         display: block;
         margin-bottom: 0.5rem;
-        color: white;
+        color: rgb(12, 12, 12);
         font-weight: 600;
     }
     
@@ -1009,7 +1008,7 @@
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hottenders">Hot Tenders</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotdeals">Hot Deals</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="drinks">Drinks</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="sauces">Sauces & Addons</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="sauces">Dips & Addons</button>
                     </div>
                 </div>
             </div>
@@ -1189,9 +1188,8 @@
     // NEW: Maximum quantity per item (easily changeable)
     const MAX_QUANTITY_PER_ITEM = 10;
 
-    // Sauce options (unchanged)
-    // Sauce options (unchanged)
-    const sauceOptions = {
+    // Dip options (changed from sauceOptions to dipOptions)
+    const dipOptions = {
         "hotbuckets": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
         "hotbirds": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
         "wings": ["Mango & Lime", "Korean BBQ", "Peri Peri", "Mango Habanero", "Hot Honey Siracha", "Buffalo Kick"],
@@ -1528,36 +1526,34 @@
             basePrice = item.price;
         }
 
-        // ----- SAUCES -----
+        // ----- DIPS ----- (changed from sauces)
         if (item.sauces) {
-            // Find the category for sauce options
-            let sauceCategory = item.tags.find(tag =>
-                sauceOptions.hasOwnProperty(tag)
+            // Find the category for dip options
+            let dipCategory = item.tags.find(tag =>
+                dipOptions.hasOwnProperty(tag)
             );
 
-            if (sauceCategory && sauceOptions[sauceCategory]) {
-                const sauceDiv = document.createElement('div');
-                sauceDiv.className = 'modal-option';
+            if (dipCategory && dipOptions[dipCategory]) {
+                const dipDiv = document.createElement('div');
+                dipDiv.className = 'modal-option';
 
                 // Determine the label text based on category
-                let labelText = 'Sauce';
-                if (['hotbuckets', 'hotbirds', 'hottenders'].includes(sauceCategory)) {
-                    labelText = 'Dip';
-                } else if (['wings'].includes(sauceCategory)) {
+                let labelText = 'Dip';
+                if (['wings', 'hottenders'].includes(dipCategory)) {
                     labelText = 'Flavour';
                 }
 
-                sauceDiv.innerHTML = `
-                    <label for="modal-sauce-select">${labelText}:</label>
-                    <select id="modal-sauce-select" class="option-selector">
-                        ${sauceOptions[sauceCategory]
+                dipDiv.innerHTML = `
+                    <label for="modal-dip-select">${labelText}:</label>
+                    <select id="modal-dip-select" class="option-selector">
+                        ${dipOptions[dipCategory]
                             .map(
-                                sauce => `<option value="${sauce}">${sauce}</option>`
+                                dip => `<option value="${dip}">${dip}</option>`
                             )
                             .join('')}
                     </select>
                 `;
-                modalOptions.appendChild(sauceDiv);
+                modalOptions.appendChild(dipDiv);
             }
         }
 
@@ -1636,7 +1632,7 @@
         const quantity = parseInt(quantityInput.value);
         const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
         let selectedOption = null;
-        let selectedSauce = null;
+        let selectedDip = null;
         let selectedVegetables = [];
         let selectedDrink = null;
         let basePrice = currentModalItem.price;
@@ -1649,11 +1645,11 @@
             basePrice = currentModalItem.options[optionIndex].price;
         }
         
-        // Get selected sauce if exists
+        // Get selected dip if exists (changed from sauce)
         if (currentModalItem.sauces) {
-            const sauceSelect = document.getElementById('modal-sauce-select');
-            if (sauceSelect) {
-                selectedSauce = sauceSelect.value;
+            const dipSelect = document.getElementById('modal-dip-select');
+            if (dipSelect) {
+                selectedDip = dipSelect.value;
             }
         }
         
@@ -1672,7 +1668,7 @@
         
         let displayName = currentModalItem.name;
         if (selectedOption) displayName += ` (${selectedOption})`;
-        if (selectedSauce) displayName += ` with ${selectedSauce}`;
+        if (selectedDip) displayName += ` with ${selectedDip}`;
         if (selectedVegetables.length > 0) displayName += ` with ${selectedVegetables.join(', ')}`;
         // NEW: Add drink to display name if selected
         if (selectedDrink) displayName += ` with ${selectedDrink}`;
@@ -1693,7 +1689,7 @@
                 price,
                 quantity,
                 selectedOption,
-                selectedSauce,
+                selectedDip,
                 selectedVegetables,
                 selectedDrink: selectedDrink
             };
@@ -1894,7 +1890,7 @@
                     price: item.price,
                     quantity: item.quantity,
                     selectedOption: item.selectedOption,
-                    selectedSauce: item.selectedSauce,
+                    selectedDip: item.selectedDip,
                     selectedVegetables: item.selectedVegetables,
                     selectedDrink: item.selectedDrink
                 });
@@ -1904,7 +1900,7 @@
                     price: item.price,
                     quantity: item.quantity,
                     selectedOption: item.selectedOption,
-                    selectedSauce: item.selectedSauce,
+                    selectedDip: item.selectedDip,
                     selectedVegetables: item.selectedVegetables
                 });
             }
