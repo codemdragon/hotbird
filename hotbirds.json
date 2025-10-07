@@ -9,7 +9,9 @@
       "mealPriceModifier": 2.50,
       "showSlider": false,
       "sauces": true,
-      "vegetables": false
+      "vegetables": false,
+      "showDrinksDropdown": true
+
     },
     {
       "name": "Nash Crunch Burger",
