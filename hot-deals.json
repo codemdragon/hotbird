@@ -9,30 +9,7 @@
       "mealPriceModifier": 0.00,
       "showSlider": false,
       "sauces": false,
-      "vegetables": false,
-      "comboItems": [
-        {
-          "name": "Classic Hot Tenders",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Chicken Tenders or Wings",
-          "option": "10 piece",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Fries",
-          "quantity": 2,
-          "includedInCombo": true
-        },
-        {
-          "name": "Pepsi",
-          "quantity": 2,
-          "includedInCombo": true
-        }
-      ]
+      "vegetables": false
     },
     {
       "name": "Burger Bonanza Deal",
@@ -43,29 +20,7 @@
       "mealPriceModifier": 0.00,
       "showSlider": false,
       "sauces": false,
-      "vegetables": false,
-      "comboItems": [
-        {
-          "name": "Single Smash Beef Burger",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Nash hot bird Burger",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Fries",
-          "quantity": 2,
-          "includedInCombo": true
-        },
-        {
-          "name": "Coca cola original",
-          "quantity": 2,
-          "includedInCombo": true
-        }
-      ]
+      "vegetables": false
     },
     {
       "name": "Family Feast Deal",
@@ -76,40 +31,7 @@
       "mealPriceModifier": 0.00,
       "showSlider": false,
       "sauces": false,
-      "vegetables": false,
-      "comboItems": [
-        {
-          "name": "Double Smash Beef Burger",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Nash Crunch Burger",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Hot Tenders Platter",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Chicken Tenders or Wings",
-          "option": "15 piece",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Fries",
-          "quantity": 3,
-          "includedInCombo": true
-        },
-        {
-          "name": "Assorted Drinks",
-          "quantity": 4,
-          "includedInCombo": true
-        }
-      ]
+      "vegetables": false
     },
     {
       "name": "Wing Lover's Combo",
@@ -120,35 +42,7 @@
       "mealPriceModifier": 0.00,
       "showSlider": false,
       "sauces": false,
-      "vegetables": false,
-      "comboItems": [
-        {
-          "name": "Chicken Tenders or Wings",
-          "option": "20 piece",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Spicy Hot Tenders",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Fries",
-          "quantity": 2,
-          "includedInCombo": true
-        },
-        {
-          "name": "Onion Rings",
-          "quantity": 1,
-          "includedInCombo": true
-        },
-        {
-          "name": "Assorted Drinks",
-          "quantity": 2,
-          "includedInCombo": true
-        }
-      ]
+      "vegetables": false
     }
   ]
 }
