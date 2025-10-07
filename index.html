@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -357,37 +358,20 @@
         border: none;
     }
     
-    .add-chips-drink {
-        background-color: transparent;
-        color: #D62616;
-        border: 2px solid #D62616;
-    }
-    
-    .drink-selection {
+    .drinks-dropdown {
         display: none;
-        background-color: whitesmoke;
+        background-color: #f8f9fa;
         border-radius: 0.5rem;
         padding: 1rem;
-        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid #e2e8f0;
     }
     
-    .drink-selection label {
+    .drinks-dropdown label {
         display: block;
         margin-bottom: 0.5rem;
-        color: white;
+        color: #2d3748;
         font-weight: 600;
-    }
-    
-    .add-chips-drink-final {
-        background-color: #D62616;
-        color: white;
-        border: none;
-        margin-top: 1rem;
-        width: 100%;
-        padding: 0.75rem;
-        border-radius: 0.5rem;
-        font-weight: 600;
-        cursor: pointer;
     }
     
     .vegetable-selection {
@@ -778,6 +762,45 @@
         color: #D62616 !important;
         font-weight: 700;
     }
+
+    /* NEW: Updated checkout page colors */
+    .checkout-page .bg-\[\#1a1a1a\] {
+        background-color: #ffffff !important;
+        color: #2d3748;
+    }
+
+    .checkout-page .text-white {
+        color: #2d3748 !important;
+    }
+
+    .checkout-page .bg-\[\#222\] {
+        background-color: #f7fafc !important;
+        color: #2d3748;
+        border: 1px solid #e2e8f0;
+    }
+
+    .checkout-page input,
+    .checkout-page select,
+    .checkout-page textarea {
+        color: #2d3748 !important;
+    }
+
+    .checkout-page input::placeholder {
+        color: #a0aec0 !important;
+    }
+
+    .checkout-page .border-\[\#333\] {
+        border-color: #e2e8f0 !important;
+    }
+
+    .checkout-page .text-gray-400 {
+        color: #718096 !important;
+    }
+
+    .checkout-page h2,
+    .checkout-page h3 {
+        color: #2d3748 !important;
+    }
 </style>
 </head>
 
@@ -812,6 +835,14 @@
         
         <div id="modal-options">
             <!-- Options will be inserted here -->
+        </div>
+        
+        <!-- NEW: Drinks Dropdown Section -->
+        <div id="drinks-dropdown" class="drinks-dropdown">
+            <h4>Select a Drink:</h4>
+            <select id="drink-select" class="option-selector">
+                <!-- Drink options will be populated from drinks.json -->
+            </select>
         </div>
         
         <!-- Vegetable Selection Section -->
@@ -851,19 +882,6 @@
         
         <div class="modal-buttons">
             <button id="modal-add-base" class="add-base">Add to Cart - £<span id="modal-base-price">0.00</span></button>
-            <button id="modal-add-chips-drink" class="add-chips-drink">Add Chips and Drink - £<span id="modal-chips-drink-price">0.00</span></button>
-            <div id="drink-selection" class="drink-selection">
-                <label for="drink-select">Select a drink:</label>
-                <select id="drink-select" class="option-selector">
-                    <option value="Sprite">Sprite</option>
-                    <option value="Pepsi">Pepsi</option>
-                    <option value="Tango Orange">Tango Orange</option>
-                    <option value="Tango Mango">Tango Mango</option>
-                    <option value="Vimto">Vimto</option>
-                    <option value="KA sparkling fruit punch">KA sparkling fruit punch</option>
-                </select>
-                <button id="modal-add-chips-drink-final" class="add-chips-drink-final">Add Chips and Drink - £<span id="modal-final-price">0.00</span></button>
-            </div>
         </div>
     </div>
 </div>
@@ -1172,6 +1190,7 @@
     const MAX_QUANTITY_PER_ITEM = 10;
 
     // Sauce options (unchanged)
+    // Sauce options (unchanged)
     const sauceOptions = {
         "hotbuckets": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
         "hotbirds": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
@@ -1179,25 +1198,32 @@
         "hottenders": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"]
     };
 
-    // Drinks options (unchanged)
-    const drinkOptions = [
-        "Sprite", "Pepsi", "Tango Orange", "Tango Mango", "Vimto", "KA sparkling fruit punch"
+    // Fixed drink options for the dropdown
+    const fixedDrinkOptions = [
+        "Sprite",
+        "Pepsi", 
+        "Tango Orange",
+        "Tango Mango",
+        "Vimto",
+        "KA sparkling fruit punch"
     ];
+
+    // Drinks options - using fixed list instead of drinks.json
+    let drinkOptions = fixedDrinkOptions;
 
     // Vegetables options (unchanged)
     const vegetableOptions = [
         "Lettuce", "Onions", "Pickles", "Tomatoes", "Cucumber"
     ];
 
-    // JSON files to load (must be placed in the same folder as index_fixed_dm.html)
+    // JSON files to load (removed drinks.json since we're using fixed list)
     const jsonFiles = [
         "hotbuckets.json",
-        "hotbirds.json",
+        "hotbirds.json", 
         "wings.json",
-        "drinks.json",
         "sauces.json",
-        "hot-tenders.json",      // NEW
-        "hot-deals.json"         // NEW
+        "hot-tenders.json",
+        "hot-deals.json"
     ];
 
     let menuData = {};
@@ -1271,15 +1297,12 @@
     const modalDescription = document.getElementById('modal-description');
     const modalOptions = document.getElementById('modal-options');
     const modalBasePrice = document.getElementById('modal-base-price');
-    const modalChipsDrinkPrice = document.getElementById('modal-chips-drink-price');
-    const modalFinalPrice = document.getElementById('modal-final-price');
     const modalAddBase = document.getElementById('modal-add-base');
-    const modalAddChipsDrink = document.getElementById('modal-add-chips-drink');
-    const drinkSelection = document.getElementById('drink-selection');
-    const drinkSelect = document.getElementById('drink-select');
-    const modalAddChipsDrinkFinal = document.getElementById('modal-add-chips-drink-final');
     const closeModal = document.querySelector('.close-modal');
     const vegetableSelection = document.getElementById('vegetable-selection');
+    // NEW: Drinks dropdown elements
+    const drinksDropdown = document.getElementById('drinks-dropdown');
+    const drinkSelect = document.getElementById('drink-select');
     // NEW: Pickup time dropdown
     const pickupTimeContainer = document.getElementById('pickup-time-container');
     const pickupTimeDropdown = document.getElementById('pickup-time');
@@ -1413,9 +1436,9 @@
         quantityInput.value = 1;
         updateQuantityButtons();
 
-        // Reset drink selection UI
-        drinkSelection.style.display = 'none';
-        modalAddChipsDrink.style.display = 'block';
+        // Reset drinks dropdown
+        drinksDropdown.style.display = 'none';
+        drinkSelect.innerHTML = '';
 
         // Reset vegetable selection
         document.querySelectorAll('input[name="vegetables"]').forEach(checkbox => {
@@ -1427,6 +1450,18 @@
             vegetableSelection.style.display = 'block';
         } else {
             vegetableSelection.style.display = 'none';
+        }
+
+        // NEW: Show or hide drinks dropdown based on item
+        if (item.showDrinksDropdown) {
+            drinksDropdown.style.display = 'block';
+            // Populate drinks dropdown
+            drinkOptions.forEach(drink => {
+                const option = document.createElement('option');
+                option.value = drink;
+                option.textContent = drink;
+                drinkSelect.appendChild(option);
+            });
         }
 
         // Set modal content
@@ -1545,8 +1580,6 @@
     function updateModalPrices(item, basePrice) {
         const quantity = parseInt(quantityInput.value);
         modalBasePrice.textContent = (basePrice * quantity).toFixed(2);
-        modalChipsDrinkPrice.textContent = ((basePrice + item.mealPriceModifier) * quantity).toFixed(2);
-        modalFinalPrice.textContent = ((basePrice + item.mealPriceModifier) * quantity).toFixed(2);
     }
 
     // Close modal
@@ -1597,7 +1630,7 @@
     }
 
     // Add item to cart from modal
-    function addToCartFromModal(isChipsDrink, selectedDrink) {
+    function addToCartFromModal() {
         if (!currentModalItem) return;
         
         const quantity = parseInt(quantityInput.value);
@@ -1605,6 +1638,7 @@
         let selectedOption = null;
         let selectedSauce = null;
         let selectedVegetables = [];
+        let selectedDrink = null;
         let basePrice = currentModalItem.price;
         
         // Get selected option if exists
@@ -1629,13 +1663,19 @@
             selectedVegetables = Array.from(vegetableCheckboxes).map(cb => cb.value);
         }
         
-        const price = isChipsDrink ? basePrice + currentModalItem.mealPriceModifier : basePrice;
+        // NEW: Get selected drink if applicable
+        if (currentModalItem.showDrinksDropdown) {
+            selectedDrink = drinkSelect.value;
+        }
+        
+        const price = basePrice;
         
         let displayName = currentModalItem.name;
         if (selectedOption) displayName += ` (${selectedOption})`;
         if (selectedSauce) displayName += ` with ${selectedSauce}`;
         if (selectedVegetables.length > 0) displayName += ` with ${selectedVegetables.join(', ')}`;
-        if (isChipsDrink) displayName += ` with Chips and ${selectedDrink}`;
+        // NEW: Add drink to display name if selected
+        if (selectedDrink) displayName += ` with ${selectedDrink}`;
         
         // NEW: Add combo indicator for receipt
         if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
@@ -1652,12 +1692,10 @@
                 name: displayName,
                 price,
                 quantity,
-                isChipsDrink,
                 selectedOption,
                 selectedSauce,
                 selectedVegetables,
-                selectedDrink: isChipsDrink ? selectedDrink : null,
-                mealPriceModifier: isChipsDrink ? currentModalItem.mealPriceModifier : 0
+                selectedDrink: selectedDrink
             };
             
             // NEW: Store combo items for backend processing
@@ -1848,23 +1886,17 @@
                     comboItems: item.comboItems
                 });
             } 
-            // Handle regular items with chips & drink
-            else if (item.isChipsDrink) {
-                // main item without the modifier
+            // Handle regular items with drinks
+            else if (item.selectedDrink) {
+                // main item without the drink
                 backendItems.push({
-                    name: item.name.replace(/ with Chips and.*$/, ''),
-                    price: item.price - item.mealPriceModifier,
+                    name: item.name.replace(/ with .*$/, ''),
+                    price: item.price,
                     quantity: item.quantity,
                     selectedOption: item.selectedOption,
                     selectedSauce: item.selectedSauce,
-                    selectedVegetables: item.selectedVegetables
-                });
-
-                // separate line for chips & drink
-                backendItems.push({
-                    name: `Chips & Drink (${item.selectedDrink})`,
-                    price: item.mealPriceModifier,
-                    quantity: item.quantity
+                    selectedVegetables: item.selectedVegetables,
+                    selectedDrink: item.selectedDrink
                 });
             } else {
                 backendItems.push({
@@ -2076,18 +2108,7 @@
         
         // Modal events
         closeModal.addEventListener('click', closeItemModal);
-        modalAddBase.addEventListener('click', () => addToCartFromModal(false));
-        
-        // Chips and drink button events
-        modalAddChipsDrink.addEventListener('click', () => {
-            drinkSelection.style.display = 'block';
-            modalAddChipsDrink.style.display = 'none';
-        });
-        
-        modalAddChipsDrinkFinal.addEventListener('click', () => {
-            const selectedDrink = drinkSelect.value;
-            addToCartFromModal(true, selectedDrink);
-        });
+        modalAddBase.addEventListener('click', addToCartFromModal);
         
         // Close modal when clicking outside
         window.addEventListener('click', (e) => {
