@@ -9,7 +9,7 @@
         "hotbuckets"
       ],
       "mealPriceModifier": 0,
-      "showSlider": true,
+      "showSlider": false,
       "sauces": true,
       "vegetables": false
     },
@@ -60,3 +60,4 @@
     }
   ]
 }
+
