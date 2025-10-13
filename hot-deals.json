@@ -1,48 +1,73 @@
 {
   "items": [
     {
-      "name": "Bird's Feast Combo",
-      "description": "Perfect for sharing - includes tenders, wings, fries, and drinks",
+      "name": "Crunch Meal",
+      "description": "Includes 2 pieces fried chicken along with fries, bun and a sauce of your choice",
       "image": "images/Birds Feast Combo.jpg",
-      "price": 18.50,
-      "tags": ["hotdeals", "combo"],
-      "mealPriceModifier": 0.00,
+      "price": 10,
+      "tags": [
+        "hotdeals"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
-      "sauces": false,
+      "sauces": true,
       "vegetables": false
     },
     {
-      "name": "Burger Bonanza Deal",
-      "description": "Two burgers, fries, and drinks - the ultimate burger experience",
+      "name": "Drumstick Delight Meal",
+      "description": "Includes 4 crispy drumsticks along with fries, bun and a sauce of your choice",
       "image": "images/Burger Bonanza Deal.jpg",
-      "price": 16.00,
-      "tags": ["hotdeals", "combo"],
-      "mealPriceModifier": 0.00,
+      "price": 14,
+      "tags": [
+        "hotdeals",
+        "combo"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
-      "sauces": false,
+      "sauces": true,
       "vegetables": false
     },
     {
-      "name": "Family Feast Deal",
-      "description": "Everything for the whole family - burgers, tenders, wings, and more",
+      "name": "All-out crunch Meal",
+      "description": "Includes 4 crispy fried chicken pieces along with fries, bun and a sauce of your choice",
       "image": "images/Family Feast Deal.jpg",
-      "price": 32.00,
-      "tags": ["hotdeals", "combo"],
-      "mealPriceModifier": 0.00,
+      "price": 18,
+      "tags": [
+        "hotdeals",
+        "combo"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
-      "sauces": false,
+      "sauces": true,
       "vegetables": false
     },
     {
-      "name": "Wing Lover's Combo",
-      "description": "All the wings you can handle with dips and fries",
+      "name": "Hot bird Deluxe Meal",
+      "description": "Includes 1 Nash Hot Bird burger, 2 crispy fried chicken pieces,1 large fries, bun and a sauce of your choice",
       "image": "images/Wing Lovers Combo.jpg",
-      "price": 22.00,
-      "tags": ["hotdeals", "combo"],
-      "mealPriceModifier": 0.00,
+      "price": 20,
+      "tags": [
+        "hotdeals",
+        "combo"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
-      "sauces": false,
+      "sauces": true,
       "vegetables": false
+    },
+    {
+      "name": "The Big Crunch",
+      "description": "Includes 6 crispy fried chicken pieces along with fries, 2 buns and a sauce of your choice",
+      "image": "images/",
+      "tags": [
+        "Hotdeals"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "price": 26
     }
   ]
 }
