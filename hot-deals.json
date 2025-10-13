@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "name": "Crunch Meal",
+      "name": "Crunch combo",
       "description": "Includes 2 pieces fried chicken along with fries, bun and a sauce of your choice",
       "image": "images/Birds Feast Combo.jpg",
       "price": 10,
@@ -14,7 +14,7 @@
       "vegetables": false
     },
     {
-      "name": "Drumstick Delight Meal",
+      "name": "Drumstick Delight combo",
       "description": "Includes 4 crispy drumsticks along with fries, bun and a sauce of your choice",
       "image": "images/Burger Bonanza Deal.jpg",
       "price": 14,
@@ -28,7 +28,7 @@
       "vegetables": false
     },
     {
-      "name": "All-out crunch Meal",
+      "name": "All-out crunch combo",
       "description": "Includes 4 crispy fried chicken pieces along with fries, bun and a sauce of your choice",
       "image": "images/Family Feast Deal.jpg",
       "price": 18,
@@ -42,7 +42,7 @@
       "vegetables": false
     },
     {
-      "name": "Hot bird Deluxe Meal",
+      "name": "Hot bird Deluxe combo",
       "description": "Includes 1 Nash Hot Bird burger, 2 crispy fried chicken pieces,1 large fries, bun and a sauce of your choice",
       "image": "images/Wing Lovers Combo.jpg",
       "price": 20,
@@ -56,7 +56,7 @@
       "vegetables": false
     },
     {
-      "name": "The Big Crunch",
+      "name": "The Big Crunch combo",
       "description": "Includes 6 crispy fried chicken pieces along with fries, 2 buns and a sauce of your choice",
       "image": "images/",
       "tags": [
@@ -68,6 +68,34 @@
       "vegetables": false,
       "showDrinksDropdown": false,
       "price": 26
+    },
+    {
+      "name": "Hot Bird trio combo",
+      "description": "Includes 2 pieces fried chicken along with fries, bun and a sauce of your choice",
+      "image": "images/",
+      "tags": [
+        "hotdeals"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "price": 14
+    },
+    {
+      "name": "Hot Bird Ultimate combo",
+      "description": "Includes 8 crispy fried chicken pieces along with 2 burgers of your choice fries, 2 buns, 2 coleslaws, 1 large drink and a sauce of your choice",
+      "image": "images/",
+      "tags": [
+        "hotdeals"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": true,
+      "price": 59
     }
   ]
 }
