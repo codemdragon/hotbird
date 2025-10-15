@@ -3,35 +3,129 @@
     {
       "name": "Classic Hot Tenders",
       "description": "Crispy, juicy chicken tenders with your choice of dip",
-      "image": "images/Classic Hot Tenders.jpg",
-      "price": 6.50,
-      "tags": ["hottenders", "chicken"],
-      "mealPriceModifier": 2.50,
+      "image": "images/",
+      "tags": [
+        "hottenders"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
       "sauces": true,
-      "vegetables": false
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "price": 0,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
     },
     {
-      "name": "Spicy Hot Tenders",
-      "description": "Fiery chicken tenders with a spicy kick and your choice of dip",
-      "image": "images/Spicy Hot Tenders.jpg",
-      "price": 7.00,
-      "tags": ["hottenders", "chicken", "spicy"],
-      "mealPriceModifier": 2.50,
+      "name": "Lemon Pepper Hot Tenders",
+      "description": "Flavorful Lemon Pepper Hot Tenders with your choice of dip",
+      "image": "images/",
+      "tags": [
+        "hottenders"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
       "sauces": true,
-      "vegetables": false
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
     },
     {
-      "name": "Hot Tenders Platter",
-      "description": "8 pieces of our signature tenders with 2 dips and fries",
-      "image": "images/Hot Tenders Platter.jpg",
-      "price": 12.00,
-      "tags": ["hottenders", "chicken"],
-      "mealPriceModifier": 0.00,
+      "name": "Louisiana chicken tenders",
+      "description": "Crispy Louisiana chicken tenders with your choice of dip",
+      "image": "images/",
+      "tags": [
+        "hottenders"
+      ],
+      "mealPriceModifier": 0,
       "showSlider": false,
       "sauces": true,
-      "vegetables": false
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "price": 0,
+      "options": [
+        {
+          "name": "5 Pieces",
+          "price": 18
+        },
+        {
+          "name": "10 Pieces",
+          "price": 35
+        },
+        {
+          "name": "15 Pieces",
+          "price": 50
+        },
+        {
+          "name": "20 Pieces",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "name": "Fiery Nashville chicken tenders ",
+      "description": "Fiery Nashville chicken tenders with your choice of dip",
+      "image": "images/",
+      "tags": [
+        "hottenders"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "price": 0,
+      "options": [
+        {
+          "name": "5 Pieces",
+          "price": 18
+        },
+        {
+          "name": "10 Pieces",
+          "price": 35
+        },
+        {
+          "name": "15 Pieces",
+          "price": 50
+        },
+        {
+          "name": "20 Pieces",
+          "price": 65
+        }
+      ]
     }
   ]
 }
