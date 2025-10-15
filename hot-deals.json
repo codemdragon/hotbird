@@ -6,7 +6,7 @@
       "image": "images/WhatsApp Image 2025-10-14 at 8.28.50 AM.jpeg",
       "price": 10,
       "tags": [
-        "hotdeals"
+        "hotdeals", "bs"
       ],
       "mealPriceModifier": 0,
       "showSlider": false,
@@ -99,3 +99,4 @@
     }
   ]
 }
+
