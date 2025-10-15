@@ -1379,56 +1379,6 @@
         renderMenuItems(allItems);
     }
 
-    // Render menu items to the page
-    function renderMenuItems(items) {
-        menuContainer.innerHTML = '';
-        
-        if (items.length === 0) {
-            menuContainer.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8 text-lg">No menu items found matching your criteria.</p>';
-            return;
-        }
-        
-        items.forEach(item => {
-            const article = document.createElement('article');
-            article.className = 'bg-[#1a1a1a] rounded-xl overflow-hidden shadow-md text-base menu-item-card';
-            
-            // Check if item has options
-            const hasOptions = item.options && item.options.length > 0;
-
-            // Check tags separately
-            const hasDTag = item.tags.includes("D");
-            const hasMTag = item.tags.includes("M");
-
-            article.innerHTML = `
-                <div class="relative">
-                    <img 
-                        alt="${item.name}" 
-                        class="menu-item-image ${hasDTag ? 'd-tag-image' : ''} ${hasMTag ? 'm-tag-image' : ''}" 
-                        src="${item.image}">
-                    <span class="absolute top-3 left-3 bg-[#D62616] text-white text-xs font-semibold uppercase rounded px-2 py-1">
-                        ${item.tags[0]}
-                    </span>
-                </div>
-                <div class="p-4 card-content">
-                    <h4 class="font-semibold text-white mb-2 text-lg">${item.name}</h4>
-                    <p class="text-gray-400 mb-3 text-sm">${item.description}</p>
-                    <div class="flex justify-between items-center mt-auto pt-2">
-                        <span class="text-[#D62616] font-semibold text-lg">
-                            ${hasOptions ? `From £${Math.min(...item.options.map(o => o.price)).toFixed(2)}` : `£${item.price.toFixed(2)}`}
-                        </span>
-                    </div>
-                </div>
-            `;
-            
-            // Add click event to open modal
-            article.addEventListener('click', () => {
-                openItemModal(item);
-            });
-            
-            menuContainer.appendChild(article);
-        });
-    }
-
     // Open modal for a menu item
     function openItemModal(item) {
         currentModalItem = item;
@@ -1453,10 +1403,13 @@
             vegetableSelection.style.display = 'none';
         }
 
-        // NEW: Show or hide drinks dropdown based on item
+        // Clear previous modal options first
+        modalOptions.innerHTML = '';
+
+        // Show or hide drinks dropdown
         if (item.showDrinksDropdown) {
             drinksDropdown.style.display = 'block';
-            // Populate drinks dropdown
+            drinkSelect.innerHTML = '';
             drinkOptions.forEach(drink => {
                 const option = document.createElement('option');
                 option.value = drink;
@@ -1464,12 +1417,18 @@
                 drinkSelect.appendChild(option);
             });
         }
-        // NEW: Burger selection dropdown for "bs" tag
-        const burgerSelectContainer = document.createElement('div');
-        burgerSelectContainer.className = 'modal-option';
-        const burgerSelectionLimit = 2; // 🔧 configure the number of burgers here
 
+        // Set modal content
+        modalImage.src = item.image;
+        modalTitle.textContent = item.name;
+        modalDescription.textContent = item.description;
+
+        // NEW: Burger selection dropdown for "bs" tag
         if (item.tags.includes('bs')) {
+            const burgerSelectContainer = document.createElement('div');
+            burgerSelectContainer.className = 'modal-option';
+            const burgerSelectionLimit = 2; // 🔧 configure how many burgers can be picked
+
             burgerSelectContainer.innerHTML = `
                 <label for="modal-burger-select">Select up to ${burgerSelectionLimit} Burgers (£6 each):</label>
                 <select id="modal-burger-select" class="option-selector" multiple size="5">
@@ -1479,29 +1438,38 @@
                     <option value="Korean BBQ Burger">Korean BBQ Burger</option>
                     <option value="Buffalo Chicken Burger">Buffalo Chicken Burger</option>
                 </select>
+                <small class="text-gray-600 block mt-1">Hold Ctrl/Cmd to select multiple</small>
             `;
             modalOptions.appendChild(burgerSelectContainer);
+
+            // Add event listener for burger selection changes
+            const burgerSelect = document.getElementById('modal-burger-select');
+            burgerSelect.addEventListener('change', () => {
+                const selectedCount = burgerSelect.selectedOptions.length;
+                if (selectedCount > burgerSelectionLimit) {
+                    // If user selects more than allowed, remove the last selection
+                    Array.from(burgerSelect.selectedOptions)
+                        .slice(burgerSelectionLimit)
+                        .forEach(option => option.selected = false);
+                    
+                    // Show a brief warning
+                    const warning = document.createElement('div');
+                    warning.className = 'text-red-500 text-sm mt-1';
+                    warning.textContent = `Maximum ${burgerSelectionLimit} burgers allowed`;
+                    burgerSelectContainer.appendChild(warning);
+                    setTimeout(() => warning.remove(), 3000);
+                }
+                
+                // Update prices when burger selection changes
+                const hasOptions = item.options && item.options.length > 0;
+                let basePrice = hasOptions ? 
+                    (document.getElementById('modal-option-select') ? 
+                    item.options[document.getElementById('modal-option-select').value].price : 
+                    item.price) : 
+                    item.price;
+                updateModalPrices(item, basePrice);
+            });
         }
-
-
-        // Set modal content
-        modalImage.src = item.image;
-        modalTitle.textContent = item.name;
-        modalDescription.textContent = item.description;
-
-        // Clear previous options
-        modalOptions.innerHTML = '';
-
-        // NEW: Add combo items display if it's a combo
-        if (item.comboItems && item.comboItems.length > 0) {
-            // Remove any old combo display before adding a new one
-            const existingCombo = document.querySelector('.combo-items-section');
-            if (existingCombo) existingCombo.remove();
-
-            const comboItemsHTML = renderComboItems(item.comboItems);
-            modalDescription.insertAdjacentHTML('afterend', comboItemsHTML);
-        }
-
 
         // ----- OPTIONS LOGIC -----
         const hasOptions = item.options && item.options.length > 0;
@@ -1581,6 +1549,16 @@
             }
         }
 
+        // NEW: Add combo items display if it's a combo
+        if (item.comboItems && item.comboItems.length > 0) {
+            // Remove any old combo display before adding a new one
+            const existingCombo = document.querySelector('.combo-items-section');
+            if (existingCombo) existingCombo.remove();
+
+            const comboItemsHTML = renderComboItems(item.comboItems);
+            modalDescription.insertAdjacentHTML('afterend', comboItemsHTML);
+        }
+
         // Update prices initially
         updateModalPrices(item, basePrice);
 
@@ -1596,6 +1574,7 @@
         increaseQuantityBtn.disabled = quantity >= MAX_QUANTITY_PER_ITEM;
     }
 
+    // Update prices in modal
     // Update prices in modal
     function updateModalPrices(item, basePrice) {
         const quantity = parseInt(quantityInput.value);
@@ -1662,6 +1641,7 @@
     }
 
     // Add item to cart from modal
+    // Add item to cart from modal
     function addToCartFromModal() {
         if (!currentModalItem) return;
         
@@ -1707,7 +1687,6 @@
             selectedBurgers = Array.from(burgerSelect.selectedOptions).map(o => o.value);
         }
 
-        
         const price = basePrice;
         
         let displayName = currentModalItem.name;
@@ -1718,11 +1697,10 @@
         if (selectedDrink) displayName += ` with ${selectedDrink}`;
         // Add burgers to display name and adjust price
         if (selectedBurgers.length > 0) {
-            displayName += ` + ${selectedBurgers.length} Burger(s)`;
+            displayName += ` + ${selectedBurgers.join(', ')}`;
             basePrice += selectedBurgers.length * 6;
         }
 
-        
         // NEW: Add combo indicator for receipt
         if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
             displayName += ` [Combo Deal]`;
@@ -1736,12 +1714,13 @@
         } else {
             const cartItem = {
                 name: displayName,
-                price,
+                price: basePrice, // Use the adjusted price with burgers
                 quantity,
                 selectedOption,
                 selectedDip,
                 selectedVegetables,
-                selectedDrink: selectedDrink
+                selectedDrink,
+                selectedBurgers // Store selected burgers
             };
             
             // NEW: Store combo items for backend processing
