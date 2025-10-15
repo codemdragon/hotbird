@@ -1001,14 +1001,15 @@
                 <div class="mt-8">
                     <h4 class="text-center text-[#D62616] text-xl mb-4">Filter by Category</h4>
                     <div class="tag-filters-container">
+                        <!-- UPDATED: Reordered filter buttons as requested -->
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black active" data-tag="all">All</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotdeals">Hot Deals</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbuckets">Hot Buckets</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbirds">Hot Birds</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="wings">Wingin' it</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hottenders">Hot Tenders</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotdeals">Hot Deals</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="drinks">Drinks</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hottenders">Tenders</button>
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="sauces">Dips & Addons</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="drinks">Drinks</button>
                     </div>
                 </div>
             </div>
@@ -1537,10 +1538,12 @@
                 const dipDiv = document.createElement('div');
                 dipDiv.className = 'modal-option';
 
-                // Determine the label text based on category
+                // UPDATED: Determine the label text based on category - Changed for Hot Tenders
                 let labelText = 'Dip';
-                if (['wings', 'hottenders'].includes(dipCategory)) {
+                if (dipCategory === 'wings') {
                     labelText = 'Flavour';
+                } else if (dipCategory === 'hottenders') {
+                    labelText = 'Dips'; // Changed from 'Flavour' to 'Dips' for Hot Tenders
                 }
 
                 dipDiv.innerHTML = `
