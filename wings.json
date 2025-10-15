@@ -1,20 +1,222 @@
 {
   "items": [
     {
-      "name": "Chicken Tenders or Wings",
-      "description": "Chicken wings or tenders with any 1 sauce",
+      "name": "Buffalo Blaze Chicken wings",
+      "description": "Crispy and spicy Buffalo Chicken wings ",
       "image": "images/Wings.png",
-      "tags": ["wings", "chicken"],
-      "mealPriceModifier": 2.50,
+      "tags": [
+        "wings",
+        "chicken"
+      ],
+      "mealPriceModifier": 0,
       "options": [
-        {"name": "5 piece", "price": 5.00},
-        {"name": "10 piece", "price": 9.00},
-        {"name": "15 piece", "price": 14.00},
-        {"name": "20 piece", "price": 18.00}
+        {
+          "name": "5 piece",
+          "price": 18
+        },
+        {
+          "name": "10 piece",
+          "price": 35
+        },
+        {
+          "name": "15 piece",
+          "price": 50
+        },
+        {
+          "name": "20 piece",
+          "price": 65
+        }
       ],
       "showSlider": false,
       "sauces": true,
       "vegetables": false
+    },
+    {
+      "name": "Mango Habanero Chicken wings ",
+      "description": "Crispy and spicy Buffalo Chicken wings ",
+      "image": "images/Wings.png",
+      "tags": [
+        "wings",
+        "chicken"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "name": "Peri Peri Heat Chicken Wings",
+      "description": "Crispy chicken wings with a tangy chili and zesty twist",
+      "image": "images/Wings.png",
+      "tags": [
+        "wings"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "name": "Sweet Chilli Crunch",
+      "description": "Sweet and spicy chicken wings, creating a perfectly balanced spice level",
+      "image": "images/Wings.png",
+      "tags": [
+        "wings"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "name": "Honey BBQ Chicken Wings",
+      "description": "Smokey-sweet BBQ with a light touch of heat",
+      "image": "images/Wings.png",
+      "tags": [
+        "wings"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "name": "Garlic Parmesan Chicken Wings",
+      "description": "Savory, Creamy and rich saucy garlic parmesan wings",
+      "image": "images/Wings.png",
+      "tags": [
+        "wings"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
+    },
+    {
+      "name": "Lemon Pepper Chicken Wings",
+      "description": "Zesty, Buttery and packed with flavor",
+      "image": "images/Wings.png",
+      "tags": [
+        "wings"
+      ],
+      "mealPriceModifier": 0,
+      "showSlider": false,
+      "sauces": true,
+      "vegetables": false,
+      "showDrinksDropdown": false,
+      "options": [
+        {
+          "name": "5 pieces",
+          "price": 18
+        },
+        {
+          "name": "10 pieces",
+          "price": 35
+        },
+        {
+          "name": "15 pieces",
+          "price": 50
+        },
+        {
+          "name": "20 pieces",
+          "price": 65
+        }
+      ]
     }
   ]
 }
