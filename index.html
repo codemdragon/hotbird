@@ -321,9 +321,11 @@
     .modal-image {
         width: 100%;
         height: 300px;
-        object-fit: cover;
+        object-fit: contain; /* CHANGED: from cover to contain */
+        object-position: center;
         border-radius: 0.5rem;
         margin-bottom: 1.5rem;
+        background-color: #f8f9fa; /* ADDED: background to prevent transparency issues */
     }
     
     .modal-option {
@@ -371,6 +373,40 @@
         margin-bottom: 0.5rem;
         color: #2d3748;
         font-weight: 600;
+    }
+    
+    /* NEW: Burger selection styles */
+    .burger-selection {
+        background-color: #dcd9e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .burger-selection h4 {
+        color: black;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
+    .burger-options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .burger-option label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: black;
+        font-weight: 600;
+    }
+    
+    @media (max-width: 767px) {
+        .burger-options-container {
+            gap: 1rem;
+        }
     }
     
     .vegetable-selection {
@@ -837,11 +873,31 @@
         </div>
         
         <!-- NEW: Drinks Dropdown Section -->
+        <!-- NEW: Drinks Dropdown Section -->
         <div id="drinks-dropdown" class="drinks-dropdown">
             <h4>Select a Drink:</h4>
             <select id="drink-select" class="option-selector">
                 <!-- Drink options will be populated from drinks.json -->
             </select>
+        </div>
+        
+        <!-- NEW: Burger Selection Section -->
+        <div id="burger-selection" class="burger-selection" style="display: none;">
+            <h4>Select 2 Burgers:</h4>
+            <div class="burger-options-container">
+                <div class="burger-option">
+                    <label>Burger 1:</label>
+                    <select id="burger-select-1" class="option-selector burger-select">
+                        <option value="">Select first burger...</option>
+                    </select>
+                </div>
+                <div class="burger-option">
+                    <label>Burger 2:</label>
+                    <select id="burger-select-2" class="option-selector burger-select">
+                        <option value="">Select second burger...</option>
+                    </select>
+                </div>
+            </div>
         </div>
         
         <!-- Vegetable Selection Section -->
@@ -1208,7 +1264,17 @@
     ];
 
     // Drinks options - using fixed list instead of drinks.json
+    // Drinks options - using fixed list instead of drinks.json
     let drinkOptions = fixedDrinkOptions;
+
+    // Burger options for burger selection dropdown
+    const burgerOptions = [
+        "Nash Hot Bird Burger",
+        "Nash Crunch Burger", 
+        "Hot Honey Siracha Burger",
+        "Korean BBQ Burger",
+        "Buffalo Chicken Burger"
+    ];
 
     // Vegetables options (unchanged)
     const vegetableOptions = [
@@ -1290,6 +1356,7 @@
     const checkoutInputs = document.querySelectorAll('.checkout-input');
 
     // Modal elements
+    // Modal elements
     const itemModal = document.getElementById('item-modal');
     const modalImage = document.getElementById('modal-image');
     const modalTitle = document.getElementById('modal-title');
@@ -1302,6 +1369,10 @@
     // NEW: Drinks dropdown elements
     const drinksDropdown = document.getElementById('drinks-dropdown');
     const drinkSelect = document.getElementById('drink-select');
+    // NEW: Burger selection elements
+    const burgerSelection = document.getElementById('burger-selection');
+    const burgerSelect1 = document.getElementById('burger-select-1');
+    const burgerSelect2 = document.getElementById('burger-select-2');
     // NEW: Pickup time dropdown
     const pickupTimeContainer = document.getElementById('pickup-time-container');
     const pickupTimeDropdown = document.getElementById('pickup-time');
@@ -1428,6 +1499,7 @@
     }
 
     // Open modal for a menu item
+    // Open modal for a menu item
     function openItemModal(item) {
         currentModalItem = item;
 
@@ -1438,6 +1510,13 @@
         // Reset drinks dropdown
         drinksDropdown.style.display = 'none';
         drinkSelect.innerHTML = '';
+
+        // NEW: Reset burger selection
+        burgerSelection.style.display = 'none';
+        burgerSelect1.innerHTML = '<option value="">Select first burger...</option>';
+        burgerSelect2.innerHTML = '<option value="">Select second burger...</option>';
+        burgerSelect1.value = '';
+        burgerSelect2.value = '';
 
         // Reset vegetable selection
         document.querySelectorAll('input[name="vegetables"]').forEach(checkbox => {
@@ -1452,6 +1531,7 @@
         }
 
         // NEW: Show or hide drinks dropdown based on item
+        // NEW: Show or hide drinks dropdown based on item
         if (item.showDrinksDropdown) {
             drinksDropdown.style.display = 'block';
             // Populate drinks dropdown
@@ -1460,6 +1540,23 @@
                 option.value = drink;
                 option.textContent = drink;
                 drinkSelect.appendChild(option);
+            });
+        }
+
+        // NEW: Show or hide burger selection based on item
+        if (item.showBurgerSelection !== false && item.tags.includes("hotdeals")) {
+            burgerSelection.style.display = 'block';
+            // Populate burger dropdowns
+            burgerOptions.forEach(burger => {
+                const option1 = document.createElement('option');
+                option1.value = burger;
+                option1.textContent = burger;
+                burgerSelect1.appendChild(option1.cloneNode(true));
+                
+                const option2 = document.createElement('option');
+                option2.value = burger;
+                option2.textContent = burger;
+                burgerSelect2.appendChild(option2);
             });
         }
 
@@ -1657,6 +1754,7 @@
         }
         
         // Get selected vegetables if applicable
+        // Get selected vegetables if applicable
         if (currentModalItem.vegetables) {
             const vegetableCheckboxes = document.querySelectorAll('input[name="vegetables"]:checked');
             selectedVegetables = Array.from(vegetableCheckboxes).map(cb => cb.value);
@@ -1665,6 +1763,21 @@
         // NEW: Get selected drink if applicable
         if (currentModalItem.showDrinksDropdown) {
             selectedDrink = drinkSelect.value;
+        }
+
+        // NEW: Get selected burgers if applicable
+        let selectedBurgers = [];
+        if (currentModalItem.showBurgerSelection !== false && currentModalItem.tags.includes("hotdeals")) {
+            const burger1 = burgerSelect1.value;
+            const burger2 = burgerSelect2.value;
+            
+            // Validate burger selection
+            if (!burger1 || !burger2) {
+                alert('Please select both burgers to continue.');
+                return;
+            }
+            
+            selectedBurgers = [burger1, burger2];
         }
         
         const price = basePrice;
@@ -1675,6 +1788,10 @@
         if (selectedVegetables.length > 0) displayName += ` with ${selectedVegetables.join(', ')}`;
         // NEW: Add drink to display name if selected
         if (selectedDrink) displayName += ` with ${selectedDrink}`;
+        // NEW: Add burgers to display name if selected
+        if (selectedBurgers.length > 0) {
+            displayName += ` with burgers: ${selectedBurgers.join(' & ')}`;
+        }
         
         // NEW: Add combo indicator for receipt
         if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
@@ -1698,9 +1815,15 @@
             };
             
             // NEW: Store combo items for backend processing
+            // NEW: Store combo items for backend processing
             if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
                 cartItem.isCombo = true;
                 cartItem.comboItems = currentModalItem.comboItems;
+            }
+            
+            // NEW: Store selected burgers for backend processing
+            if (selectedBurgers.length > 0) {
+                cartItem.selectedBurgers = selectedBurgers;
             }
             
             cart.push(cartItem);
