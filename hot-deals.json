@@ -3,7 +3,7 @@
     {
       "name": "Crunch combo",
       "description": "Includes 2 pieces fried chicken along with fries, bun and a sauce of your choice",
-      "image": "images/Birds Feast Combo.jpg",
+      "image": "images/WhatsApp Image 2025-10-14 at 8.28.50 AM.jpeg",
       "price": 10,
       "tags": [
         "hotdeals"
@@ -15,8 +15,8 @@
     },
     {
       "name": "Drumstick Delight combo",
-      "description": "Includes 4 crispy drumsticks along with fries, bun and a sauce of your choice",
-      "image": "images/Burger Bonanza Deal.jpg",
+      "description": "Includes 4 crispy drumsticks along with fries, bun, coleslaw and a sauce of your choice",
+      "image": "images/WhatsApp Image 2025-10-14 at 8.28.50 AM (1).jpeg",
       "price": 14,
       "tags": [
         "hotdeals",
@@ -29,8 +29,8 @@
     },
     {
       "name": "All-out crunch combo",
-      "description": "Includes 4 crispy fried chicken pieces along with fries, bun and a sauce of your choice",
-      "image": "images/Family Feast Deal.jpg",
+      "description": "Includes 4 crispy fried chicken pieces along with fries, bun, coleslaw, 1 hot bird garlic sauce 1 sauce of your choice",
+      "image": "images/WhatsApp Image 2025-10-14 at 8.28.50 AM (2).jpeg",
       "price": 18,
       "tags": [
         "hotdeals",
@@ -44,7 +44,7 @@
     {
       "name": "Hot bird Deluxe combo",
       "description": "Includes 1 Nash Hot Bird burger, 2 crispy fried chicken pieces,1 large fries, bun and a sauce of your choice",
-      "image": "images/Wing Lovers Combo.jpg",
+      "image": "images/WhatsApp Image 2025-10-14 at 8.28.50 AM (3).jpeg",
       "price": 20,
       "tags": [
         "hotdeals",
@@ -57,8 +57,8 @@
     },
     {
       "name": "The Big Crunch combo",
-      "description": "Includes 6 crispy fried chicken pieces along with fries, 2 buns and a sauce of your choice",
-      "image": "images/",
+      "description": "Includes 6 crispy fried chicken pieces along with 2 fries, 2 buns, 2 small drinks, 2 hot bird garlic sauces and 1 sauce of your choice",
+      "image": "images/deal 7.jpg",
       "tags": [
         "Hotdeals"
       ],
@@ -66,13 +66,13 @@
       "showSlider": false,
       "sauces": true,
       "vegetables": false,
-      "showDrinksDropdown": false,
+      "showDrinksDropdown": true,
       "price": 26
     },
     {
       "name": "Hot Bird trio combo",
-      "description": "Includes 2 pieces fried chicken along with fries, bun and a sauce of your choice",
-      "image": "images/",
+      "description": "Includes 3 pieces fried chicken along with fries, bun and a sauce of your choice",
+      "image": "images/WhatsApp Image 2025-10-14 at 8.28.50 AM (4).jpeg",
       "tags": [
         "hotdeals"
       ],
@@ -85,8 +85,8 @@
     },
     {
       "name": "Hot Bird Ultimate combo",
-      "description": "Includes 8 crispy fried chicken pieces along with 2 burgers of your choice fries, 2 buns, 2 coleslaws, 1 large drink and a sauce of your choice",
-      "image": "images/",
+      "description": "Includes 8 crispy fried chicken pieces along with 2 burgers of your choice fries, 2 buns, 3 coleslaws, 1 large drink, 2 hot bird garlic sauces and 1 sauce of your choice",
+      "image": "images/WhatsApp Image 2025-10-14 at 8.46.14 AM.jpeg",
       "tags": [
         "hotdeals"
       ],
