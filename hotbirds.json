@@ -3,7 +3,7 @@
     {
       "name": "Nash hot bird Burger",
       "description": "Spicy Nashville-style chicken burger with nachos cheese, pickles, burger blast sauce and 1 dip",
-      "image": "images/nash hot bird.jpg",
+      "image": "images/Nash hot bird.jpg",
       "price": 12,
       "tags": [
         "hotbirds",
