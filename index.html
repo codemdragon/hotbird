@@ -1464,6 +1464,25 @@
                 drinkSelect.appendChild(option);
             });
         }
+        // NEW: Burger selection dropdown for "bs" tag
+        const burgerSelectContainer = document.createElement('div');
+        burgerSelectContainer.className = 'modal-option';
+        const burgerSelectionLimit = 2; // 🔧 configure the number of burgers here
+
+        if (item.tags.includes('bs')) {
+            burgerSelectContainer.innerHTML = `
+                <label for="modal-burger-select">Select up to ${burgerSelectionLimit} Burgers (£6 each):</label>
+                <select id="modal-burger-select" class="option-selector" multiple size="5">
+                    <option value="Nash Hot Bird Burger">Nash Hot Bird Burger</option>
+                    <option value="Nash Crunch Burger">Nash Crunch Burger</option>
+                    <option value="Hot Honey Siracha Burger">Hot Honey Siracha Burger</option>
+                    <option value="Korean BBQ Burger">Korean BBQ Burger</option>
+                    <option value="Buffalo Chicken Burger">Buffalo Chicken Burger</option>
+                </select>
+            `;
+            modalOptions.appendChild(burgerSelectContainer);
+        }
+
 
         // Set modal content
         modalImage.src = item.image;
@@ -1580,8 +1599,20 @@
     // Update prices in modal
     function updateModalPrices(item, basePrice) {
         const quantity = parseInt(quantityInput.value);
-        modalBasePrice.textContent = (basePrice * quantity).toFixed(2);
+        let totalPrice = basePrice;
+
+        // Include burger selection cost if tag is present
+        if (item.tags.includes('bs')) {
+            const burgerSelect = document.getElementById('modal-burger-select');
+            if (burgerSelect) {
+                const burgerCount = burgerSelect.selectedOptions.length;
+                totalPrice += burgerCount * 6;
+            }
+        }
+
+        modalBasePrice.textContent = (totalPrice * quantity).toFixed(2);
     }
+
 
     // Close modal
     function closeItemModal() {
@@ -1668,6 +1699,14 @@
         if (currentModalItem.showDrinksDropdown) {
             selectedDrink = drinkSelect.value;
         }
+
+        // NEW: Get burger selections if applicable
+        let selectedBurgers = [];
+        if (currentModalItem.tags.includes('bs')) {
+            const burgerSelect = document.getElementById('modal-burger-select');
+            selectedBurgers = Array.from(burgerSelect.selectedOptions).map(o => o.value);
+        }
+
         
         const price = basePrice;
         
@@ -1677,6 +1716,12 @@
         if (selectedVegetables.length > 0) displayName += ` with ${selectedVegetables.join(', ')}`;
         // NEW: Add drink to display name if selected
         if (selectedDrink) displayName += ` with ${selectedDrink}`;
+        // Add burgers to display name and adjust price
+        if (selectedBurgers.length > 0) {
+            displayName += ` + ${selectedBurgers.length} Burger(s)`;
+            basePrice += selectedBurgers.length * 6;
+        }
+
         
         // NEW: Add combo indicator for receipt
         if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
