@@ -1544,6 +1544,7 @@
         }
 
         // NEW: Show or hide burger selection based on item
+        // NEW: Show or hide burger selection based on item
         if (item.showBurgerSelection !== false && item.tags.includes("hotdeals")) {
             burgerSelection.style.display = 'block';
             // Populate burger dropdowns
@@ -1558,6 +1559,8 @@
                 option2.textContent = burger;
                 burgerSelect2.appendChild(option2);
             });
+        } else {
+            burgerSelection.style.display = 'none';
         }
 
         // Set modal content
@@ -1625,11 +1628,17 @@
         }
 
         // ----- DIPS ----- (changed from sauces)
+        // ----- DIPS ----- (changed from sauces)
         if (item.sauces) {
             // Find the category for dip options
             let dipCategory = item.tags.find(tag =>
                 dipOptions.hasOwnProperty(tag)
             );
+
+            // FIX: If no specific category found but sauces is true, use hotbuckets as default
+            if (!dipCategory) {
+                dipCategory = "hotbuckets"; // Default category for items with sauces: true
+            }
 
             if (dipCategory && dipOptions[dipCategory]) {
                 const dipDiv = document.createElement('div');
