@@ -404,6 +404,20 @@
         cursor: pointer;
     }
     
+    .burger-selection {
+        background-color: #dcd9e6;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .burger-selection h4 {
+        color: black;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    
     .home-buttons {
         justify-content: flex-start;
     }
@@ -846,6 +860,15 @@
             </select>
         </div>
         
+        <!-- NEW: Burger Selection Section -->
+        <div id="burger-selection" class="burger-selection" style="display: none;">
+            <h4>Select Burgers:</h4>
+            <select id="burger-select" class="option-selector" multiple>
+                <!-- Burger options will be populated dynamically -->
+            </select>
+            <p class="text-sm text-gray-600 mt-2">Hold Ctrl (Cmd on Mac) to select multiple burgers</p>
+        </div>
+        
         <!-- Vegetable Selection Section -->
         <div id="vegetable-selection" class="vegetable-selection" style="display: none;">
             <h4>Select Vegetables:</h4>
@@ -1005,1254 +1028,1000 @@
                     <div class="tag-filters-container">
                         <!-- UPDATED: Reordered filter buttons as requested -->
                         <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black active" data-tag="all">All</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotdeals">Hot Deals</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbuckets">Hot Buckets</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hotbirds">Hot Birds</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="wings">Wingin' it</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="hottenders">Tenders</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="sauces">Dips & Addons</button>
-                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="drinks">Drinks</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="k">Kebabs</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="b">Burgers</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="w">Wings</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="s">Sides</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="d">Drinks</button>
+                        <button class="tag-filter text-sm bg-[#1a1a1a] text-white px-5 py-2.5 rounded-lg hover:bg-[#D62616] hover:text-black" data-tag="m">Meal Deals</button>
                     </div>
                 </div>
             </div>
-
-            <div id="menu-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-                <!-- Menu items will be loaded dynamically from JSON -->
+            
+            <!-- Menu Items Grid -->
+            <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu items will be loaded here dynamically -->
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 text-center text-lg sm:text-xl text-black leading-relaxed">
-            <h3 class="font-semibold text-blacktext-3xl sm:text-4xl mb-8">Our Story</h3>
-            <p class="mb-8">
-                Welcome to Hot Bird, where chicken isn't just food - it's an adventure
-            </p>
-            <p class="mb-8">
-                Crispy, juicy, and packed with bold flavors, our chicken and fries are here to make your taste buds tingle
-            </p>
-            <p>
-                Every bite is fun, fiery, and impossible to forget.
-            </p>
+        <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20">
+            <h3 class="text-center font-semibold text-3xl lg:text-6xl mb-4 righteous-font">ABOUT US</h3>
+            <p class="text-center text-gray-400 text-lg sm:text-xl mb-12">Learn more about our story and passion for great food</p>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h4 class="text-2xl font-bold mb-6 text-[#D62616]">Our Story</h4>
+                    <p class="text-gray-300 text-lg mb-6">
+                        At HotBird, we believe in serving food that's not just delicious, but memorable. 
+                        Our journey began with a simple passion for creating the perfect fried chicken - 
+                        crispy on the outside, juicy on the inside, and packed with flavor.
+                    </p>
+                    <p class="text-gray-300 text-lg mb-6">
+                        Every dish we serve is crafted with care, using the freshest ingredients and 
+                        our secret blend of spices that makes our chicken truly special.
+                    </p>
+                    <div class="flex items-center space-x-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-[#D62616]">5+</div>
+                            <div class="text-gray-400">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-[#D62616]">10K+</div>
+                            <div class="text-gray-400">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-[#D62616]">50+</div>
+                            <div class="text-gray-400">Menu Items</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#1a1a1a] rounded-2xl p-8">
+                    <img src="about-image.jpg" alt="About HotBird" class="w-full h-80 object-cover rounded-xl">
+                </div>
+            </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20 text-center text-lg sm:text-xl text-black leading-relaxed">
-        <h3 class="font-semibold text-black text-3xl sm:text-4xl mb-8">Visit Us</h3>
-        <p class="mb-12 text-2xl">Come and experience the taste of authentic kebabs</p>
-        <div class="flex flex-col sm:flex-row justify-center gap-8">
+        <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 py-12 md:py-20">
+            <h3 class="text-center font-semibold text-3xl lg:text-6xl mb-4 righteous-font">CONTACT US</h3>
+            <p class="text-center text-gray-400 text-lg sm:text-xl mb-12">Get in touch with us for orders or inquiries</p>
             
-            <!-- Whole address card clickable -->
-            <a href="https://maps.app.goo.gl/BQyKUCf2AcjfTWvT9" target="_blank"
-            class="bg-white rounded-xl p-8 w-full sm:w-64 text-lg block hover:bg-[#F2F0EF] transition-colors">
-            <i class="fas fa-map-marker-alt text-[#D62616] text-3xl mb-4"></i>
-            <p>
-                472 Great West Road<br>
-                Hounslow, England<br>
-                TW5 0JA
-            </p>
-            </a>
-
-            <div class="bg-white rounded-xl p-8 w-full sm:w-64 text-lg">
-            <i class="fas fa-phone-alt text-[#D62616] text-3xl mb-4"></i>
-            <p>+44 20 7998 6050</p>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h4 class="text-2xl font-bold mb-6 text-[#D62616]">Visit Our Location</h4>
+                    <div class="space-y-4 text-gray-300 text-lg">
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-map-marker-alt text-[#D62616] mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Address</p>
+                                <p>123 Chicken Street, Food City, FC1 2AB</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-clock text-[#D62616] mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Opening Hours</p>
+                                <p>Monday - Sunday: 12PM - 2AM</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-phone text-[#D62616] mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Phone</p>
+                                <p>+44 1234 567890</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <i class="fas fa-envelope text-[#D62616] mt-1"></i>
+                            <div>
+                                <p class="font-semibold">Email</p>
+                                <p>info@hotbird.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-[#1a1a1a] rounded-2xl p-8">
+                    <h4 class="text-2xl font-bold mb-6 text-[#D62616]">Send us a Message</h4>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Your Name" class="w-full bg-[#222] text-white rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                        <input type="email" placeholder="Your Email" class="w-full bg-[#222] text-white rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                        <textarea placeholder="Your Message" rows="4" class="w-full bg-[#222] text-white rounded-xl py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]"></textarea>
+                        <button type="submit" class="w-full bg-[#D62616] text-white font-semibold rounded-xl py-3 hover:bg-[#a01c10] transition-colors">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
             </div>
-
-            <div class="bg-white rounded-xl p-8 w-full sm:w-64 text-lg">
-            <i class="fas fa-clock text-[#D62616] text-3xl mb-4"></i>
-            <p>
-                MON - SUN<br>
-                <span class="font-bold">12PM TIL 2AM</span>
-            </p>
-            </div>
-        </div>
         </section>
-
     </main>
-
-    <footer class="bg-[#0a0a0a] border-t border-[#222222] py-6 px-4 sm:px-6 md:px-10 text-lg text-[#D62616] font-semibold flex flex-col sm:flex-row justify-between items-center max-w-7xl mx-auto">
-        <div class="mb-4 sm:mb-0">HotBird</div>
-        <div class="text-gray-500 text-base">© 2023 HotBird. All rights reserved.</div>
-    </footer>
 </div>
 
 <!-- Checkout Page -->
-<div id="checkout-page" class="checkout-page max-w-4xl mx-auto px-4 sm:px-6 md:px-10 py-12">
-    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-8 text-center">Checkout</h2>
-    
-    <!-- Order Summary -->
-    <div class="bg-[#1a1a1a] rounded-xl p-8 mb-8">
-        <h3 class="text-2xl font-semibold text-white mb-6">Order Summary</h3>
-        <div id="checkout-items" class="space-y-4 mb-6">
-            <!-- Items will be populated here -->
-        </div>
-        <div class="border-t border-[#333] pt-6">
-            <div class="flex justify-between text-xl text-white">
-                <span class="font-semibold">Total:</span>
-                <span id="checkout-total" class="font-bold">£0.00</span>
+<div id="checkout-page" class="checkout-page fixed inset-0 bg-white z-50 overflow-y-auto">
+    <div class="min-h-screen bg-white">
+        <div class="container mx-auto px-4 py-8 max-w-4xl">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-8">
+                <h1 class="text-3xl font-bold">Checkout</h1>
+                <button id="back-to-menu" class="text-[#D62616] hover:text-[#a01c10] font-semibold">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Menu
+                </button>
             </div>
-        </div>
-    </div>
-    
-    <!-- Checkout Form -->
-    <form id="checkout-form" class="bg-[#1a1a1a] rounded-xl p-8">
-        <h3 class="text-2xl font-semibold text-white mb-8">Customer Information</h3>
-        
-        <!-- NEW: Delivery Type Dropdown -->
-        <div class="mb-6">
-            <label for="delivery-type" class="block text-white mb-3 text-lg">Order Type</label>
-            <select id="delivery-type" class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg">
-                <option value="">Select order type...</option>
-                <option value="collection">Collection</option>
-            </select>
-            <p class="text-amber-500 text-sm mt-2 font-semibold"> </p>  <!-- Note replaced Collection only Keep for later -->
-        </div>
 
-        <!-- NEW: Container for fields that will be shown on selection -->
-        <div id="details-container" style="display: none;">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Checkout Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Column - Order Summary -->
                 <div>
-                    <label for="full-name" class="block text-white mb-3 text-lg">Full Name</label>
-                    <input type="text" id="full-name" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg checkout-input">
-                </div>
-                <div>
-                    <label for="phone" class="block text-white mb-3 text-lg">Phone Number</label>
-                    <input type="tel" id="phone" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg checkout-input">
-                </div>
-            </div>
-            
-            <div class="mb-6">
-                <label for="email" class="block text-white mb-3 text-lg">Email Address</label>
-                <input type="email" id="email" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg checkout-input">
-            </div>
-            
-            <!-- Card Details Section -->
-            <div class="mb-6">
-                <label class="block text-white mb-3 text-lg">Card Details</label>
-                <div class="card-input-group">
-                    <div>
-                        <input type="text" id="card-number" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg checkout-input" placeholder="Card Number">
+                    <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
+                    <div id="checkout-items" class="bg-[#f7fafc] rounded-lg p-4 mb-6">
+                        <!-- Checkout items will be populated here -->
                     </div>
-                    <div>
-                        <input type="text" id="card-expiry" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg checkout-input" placeholder="MM/YY">
-                    </div>
-                    <div>
-                        <input type="text" id="card-cvv" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg checkout-input" placeholder="CVV">
+                    <div class="bg-[#f7fafc] rounded-lg p-4">
+                        <div class="flex justify-between mb-2">
+                            <span>Subtotal:</span>
+                            <span id="checkout-subtotal">£0.00</span>
+                        </div>
+                        <div class="flex justify-between mb-2">
+                            <span>Delivery:</span>
+                            <span id="checkout-delivery">£0.00</span>
+                        </div>
+                        <div class="flex justify-between font-bold text-lg border-t border-[#e2e8f0] pt-2">
+                            <span>Total:</span>
+                            <span id="checkout-total">£0.00</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="mb-8">
-                <label for="special-instructions" class="block text-white mb-3 text-lg">Special Instructions (Optional)</label>
-                <textarea id="special-instructions" class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] h-24 text-lg"></textarea>
-            </div>
-        </div>
-        <!-- NEW: Pickup Time Selector -->
-        <div class="mb-8" id="pickup-time-container" style="display: none;">
-        <label for="pickup-time" class="block text-white mb-3 text-lg">Select Pickup Time</label>
-        <select id="pickup-time" required class="w-full bg-[#222] text-white rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616] text-lg">
-            <option value="">Loading times...</option>
-        </select>
-        </div>            
-        <button type="submit" id="place-order-btn" class="w-full bg-[#D62616] text-white text-xl font-bold rounded-lg py-4 hover:bg-[#e05a00] disabled:bg-gray-600 disabled:cursor-not-allowed" disabled>
-            Place Order – £0.00
-        </button>
-    </form>
-    
-    <div class="text-center mt-8">
-        <button id="back-to-menu" class="text-[#D62616] hover:underline text-lg">
-            ← Back to Menu
-        </button>
-    </div>
-</div>
 
-<!-- Order Confirmation Modal -->
-<div id="order-confirmation" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
-    <div class="bg-[#1a1a1a] rounded-xl p-8 max-w-md w-full mx-4">
-        <div class="text-center">
-            <i class="fas fa-check-circle text-[#D62616] text-5xl mb-4"></i>
-            <h3 class="text-2xl font-bold text-white mb-2">Order Confirmed!</h3>
-            <p class="text-gray-300 mb-6" id="confirmation-message">Thank you for your order. We'll start preparing it right away.</p>
-            <button id="confirm-ok" class="bg-[#D62616] text-white font-semibold rounded-lg px-6 py-3 hover:bg-[#e05a00]">
-                OK
-            </button>
+                <!-- Right Column - Customer Information -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4">Customer Information</h2>
+                    <form id="checkout-form" class="space-y-4">
+                        <div class="card-input-group">
+                            <div>
+                                <label class="block mb-2 font-semibold">Full Name</label>
+                                <input type="text" required class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                            </div>
+                            <div>
+                                <label class="block mb-2 font-semibold">Phone Number</label>
+                                <input type="tel" required class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block mb-2 font-semibold">Email</label>
+                            <input type="email" required class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                        </div>
+                        
+                        <div>
+                            <label class="block mb-2 font-semibold">Delivery Address</label>
+                            <textarea required rows="3" class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]"></textarea>
+                        </div>
+                        
+                        <div class="card-input-group">
+                            <div>
+                                <label class="block mb-2 font-semibold">City</label>
+                                <input type="text" required class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                            </div>
+                            <div>
+                                <label class="block mb-2 font-semibold">Postcode</label>
+                                <input type="text" required class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block mb-2 font-semibold">Delivery Instructions (Optional)</label>
+                            <textarea rows="2" class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block mb-2 font-semibold">Payment Method</label>
+                            <select class="w-full bg-white border border-[#e2e8f0] text-black rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-[#D62616]">
+                                <option>Cash on Delivery</option>
+                                <option>Card Payment</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-[#D62616] text-white font-semibold rounded-lg py-4 hover:bg-[#a01c10] transition-colors">
+                            Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    // Leave empty for now. When backend is ready, put its URL here.
-    const API_BASE = ''; // e.g. 'https://api.yoursite.com'
-
-    // Helper: returns either the local file or the API endpoint.
-    function getJsonUrl(file) {
-    return API_BASE ? `${API_BASE}/${file}` : file;
-    }
-
-    // NEW: Maximum quantity per item (easily changeable)
-    const MAX_QUANTITY_PER_ITEM = 10;
-
-    // Dip options (changed from sauceOptions to dipOptions)
-    const dipOptions = {
-        "hotbuckets": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
-        "hotbirds": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"],
-        "wings": ["Mango & Lime", "Korean BBQ", "Peri Peri", "Mango Habanero", "Hot Honey Siracha", "Buffalo Kick"],
-        "hottenders": ["Burger Blast", "Butter Ranch", "Garlic Gurb", "Habanero Mayo", "Siracha Heat", "Smookey BBQ", "Tomato Splash", "Buffalo Kick", "Mango Habenero"]
-    };
-
-    // Fixed drink options for the dropdown
-    const fixedDrinkOptions = [
-        "Sprite",
-        "Pepsi", 
-        "Tango Orange",
-        "Tango Mango",
-        "Vimto",
-        "KA sparkling fruit punch"
-    ];
-
-    // Drinks options - using fixed list instead of drinks.json
-    let drinkOptions = fixedDrinkOptions;
-
-    // Vegetables options (unchanged)
-    const vegetableOptions = [
-        "Lettuce", "Onions", "Pickles", "Tomatoes", "Cucumber"
-    ];
-
-    // JSON files to load (removed drinks.json since we're using fixed list)
-    const jsonFiles = [
-        "hotbuckets.json",
-        "hotbirds.json", 
-        "wings.json",
-        "sauces.json",
-        "hot-tenders.json",
-        "hot-deals.json"
-    ];
-
-    let menuData = {};
-
-    // Load all external JSON files
-    async function loadAllJSON() {
-        for (const file of jsonFiles) {
-            try {
-                const response = await fetch(getJsonUrl(file));
-                if (!response.ok) throw new Error(`Failed to load ${file}`);
-                const data = await response.json();
-                menuData[file] = data;
-            } catch (err) {
-                console.error(`Error loading ${file}:`, err);
-            }
-        }
-        // Load pickup-times.json
-        try {
-            const response = await fetch(getJsonUrl("pickup-times.json"));
-            if (!response.ok) throw new Error("Failed to load pickup-times.json");
-            const data = await response.json();
-            pickupTimes = data.times || [];
-
-            pickupTimeDropdown.innerHTML = '<option value="">Select a pickup time...</option>';
-            pickupTimes.forEach(time => {
-                const opt = document.createElement("option");
-                opt.value = time;
-                opt.textContent = time;
-                pickupTimeDropdown.appendChild(opt);
-            });
-        } catch (err) {
-            console.error("Error loading pickup-times.json:", err);
-            pickupTimeDropdown.innerHTML = '<option value="">Pickup times unavailable</option>';
-        }           
-    }
-
-    // Cart functionality
+    // Global variables
+    let menuData = [];
+    let drinksData = [];
     let cart = [];
+    let currentModalItem = null;
+    let currentModalOptions = {};
+    let currentModalPrice = 0;
+
+    // Burger selection configuration
+    const burgerOptions = [
+        "Nash hot bird Burger",
+        "Nash Crunch Burger", 
+        "Hot Honey Siracha Burger",
+        "Korean BBQ Burger",
+        "Buffalo Chicken Burger"
+    ];
+    const burgerPrice = 6.00;
+
+    // DOM elements
     const cartButton = document.getElementById('cart-button');
-    const closeCart = document.getElementById('close-cart');
     const cartDrawer = document.querySelector('.cart-drawer');
+    const closeCart = document.getElementById('close-cart');
     const overlay = document.querySelector('.overlay');
     const cartItems = document.getElementById('cart-items');
     const cartSubtotal = document.getElementById('cart-subtotal');
     const cartCount = document.getElementById('cart-count');
-    const menuContainer = document.getElementById('menu-container');
-    const searchInput = document.getElementById('search-input');
-    const tagFilters = document.querySelectorAll('.tag-filter');
     const checkoutButton = document.getElementById('checkout-button');
-    const orderNowButton = document.getElementById('order-now-btn');
-    const viewMenuButton = document.getElementById('view-menu-btn');
+    const clearCartButton = document.getElementById('clear-cart');
     const mainContent = document.getElementById('main-content');
     const checkoutPage = document.getElementById('checkout-page');
-    const backToMenuButton = document.getElementById('back-to-menu');
+    const backToMenu = document.getElementById('back-to-menu');
     const checkoutItems = document.getElementById('checkout-items');
+    const checkoutSubtotal = document.getElementById('checkout-subtotal');
+    const checkoutDelivery = document.getElementById('checkout-delivery');
     const checkoutTotal = document.getElementById('checkout-total');
-    const placeOrderButton = document.getElementById('place-order-btn');
     const checkoutForm = document.getElementById('checkout-form');
-    const orderConfirmation = document.getElementById('order-confirmation');
-    const confirmOkButton = document.getElementById('confirm-ok');
-    
-    // NEW: Checkout form elements
-    const deliveryTypeDropdown = document.getElementById('delivery-type');
-    const detailsContainer = document.getElementById('details-container');
-    const checkoutInputs = document.querySelectorAll('.checkout-input');
-
-    // Modal elements
+    const searchInput = document.getElementById('search-input');
+    const tagFilters = document.querySelectorAll('.tag-filter');
+    const menuItemsContainer = document.getElementById('menu-items');
     const itemModal = document.getElementById('item-modal');
+    const closeModal = document.querySelector('.close-modal');
     const modalImage = document.getElementById('modal-image');
     const modalTitle = document.getElementById('modal-title');
     const modalDescription = document.getElementById('modal-description');
     const modalOptions = document.getElementById('modal-options');
     const modalBasePrice = document.getElementById('modal-base-price');
     const modalAddBase = document.getElementById('modal-add-base');
-    const closeModal = document.querySelector('.close-modal');
-    const vegetableSelection = document.getElementById('vegetable-selection');
-    // NEW: Drinks dropdown elements
     const drinksDropdown = document.getElementById('drinks-dropdown');
     const drinkSelect = document.getElementById('drink-select');
-    // NEW: Pickup time dropdown
-    const pickupTimeContainer = document.getElementById('pickup-time-container');
-    const pickupTimeDropdown = document.getElementById('pickup-time');
-    let pickupTimes = [];
-
-    // NEW: Quantity selector elements
-    const quantityInput = document.getElementById('modal-quantity');
-    const decreaseQuantityBtn = document.querySelector('.decrease-quantity');
-    const increaseQuantityBtn = document.querySelector('.increase-quantity');
-    
-    // Image positioning controls
-    const imagePositionSlider = document.getElementById('image-position-slider');
-    const positionValue = document.getElementById('position-value');
-    const resetPositionButton = document.getElementById('reset-position');
-    const imageControlPanel = document.querySelector('.image-control-panel');
-
-    // NEW: Clear cart button
-    const clearCartButton = document.getElementById('clear-cart');
-
-    // NEW: Mobile menu elements
+    const vegetableSelection = document.getElementById('vegetable-selection');
+    const burgerSelection = document.getElementById('burger-selection');
+    const burgerSelect = document.getElementById('burger-select');
+    const modalQuantity = document.getElementById('modal-quantity');
+    const decreaseQuantity = document.querySelector('.decrease-quantity');
+    const increaseQuantity = document.querySelector('.increase-quantity');
+    const orderNowBtn = document.getElementById('order-now-btn');
+    const viewMenuBtn = document.getElementById('view-menu-btn');
     const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
     const closeMobileMenu = document.querySelector('.close-mobile-menu');
-    const mobileNavLinks = mobileMenu.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const imageControlPanel = document.querySelector('.image-control-panel');
+    const imagePositionSlider = document.getElementById('image-position-slider');
+    const positionValue = document.getElementById('position-value');
+    const resetPosition = document.getElementById('reset-position');
 
-    // Current item being viewed in modal
-    let currentModalItem = null;
+    // Initialize the application
+    document.addEventListener('DOMContentLoaded', function() {
+        loadMenuData();
+        setupEventListeners();
+        updateCart();
+    });
 
-    // NEW: Function to render combo items in modal
-    function renderComboItems(comboItems) {
-        if (!comboItems || comboItems.length === 0) return '';
+    // Load menu data from JSON files
+    async function loadMenuData() {
+        try {
+            const response = await fetch('menu.json');
+            menuData = await response.json();
+            displayMenuItems(menuData);
+            
+            // Load drinks data
+            const drinksResponse = await fetch('drinks.json');
+            drinksData = await drinksResponse.json();
+            populateDrinkOptions();
+        } catch (error) {
+            console.error('Error loading menu data:', error);
+        }
+    }
+
+    // Populate drink options in the modal
+    function populateDrinkOptions() {
+        drinkSelect.innerHTML = '<option value="">Select a drink</option>';
+        drinksData.forEach(drink => {
+            const option = document.createElement('option');
+            option.value = drink.name;
+            option.textContent = `${drink.name} - £${drink.price.toFixed(2)}`;
+            option.dataset.price = drink.price;
+            drinkSelect.appendChild(option);
+        });
+    }
+
+    // Setup all event listeners
+    function setupEventListeners() {
+        // Cart functionality
+        cartButton.addEventListener('click', toggleCart);
+        closeCart.addEventListener('click', toggleCart);
+        overlay.addEventListener('click', closeAllOverlays);
+        checkoutButton.addEventListener('click', openCheckout);
+        clearCartButton.addEventListener('click', clearCart);
+        backToMenu.addEventListener('click', closeCheckout);
         
-        let html = '<div class="combo-items-section mt-4 p-4 bg-gray-100 rounded-lg">';
-        html += '<h4 class="font-semibold text-black mb-3">Combo Includes:</h4>';
-        html += '<ul class="space-y-2">';
+        // Checkout form
+        checkoutForm.addEventListener('submit', placeOrder);
         
-        comboItems.forEach(item => {
-            const optionText = item.option ? ` (${item.option})` : '';
-            html += `
-                <li class="flex justify-between items-center text-sm">
-                    <span class="text-black">${item.quantity}x ${item.name}${optionText}</span>
-                    <span class="text-green-600 font-semibold"></span>
-                </li>
-            `;
+        // Search and filter
+        searchInput.addEventListener('input', filterMenuItems);
+        tagFilters.forEach(filter => {
+            filter.addEventListener('click', filterByTag);
         });
         
-        html += '</ul></div>';
-        return html;
-    }
-
-    // Load menu items from JSON data
-    function loadMenuItems() {
-        let allItems = [];
-        let showSliderPanel = false;
+        // Modal functionality
+        closeModal.addEventListener('click', closeItemModal);
+        modalAddBase.addEventListener('click', addToCartFromModal);
         
-        // Simulate loading from multiple JSON files
-        for (const fileName in menuData) {
-            if (menuData.hasOwnProperty(fileName)) {
-                allItems = allItems.concat(menuData[fileName].items);
-                
-                // Check if any item has showSlider set to true
-                if (menuData[fileName].items.some(item => item.showSlider)) {
-                    showSliderPanel = true;
-                }
+        // Quantity controls
+        decreaseQuantity.addEventListener('click', decreaseModalQuantity);
+        increaseQuantity.addEventListener('click', increaseModalQuantity);
+        modalQuantity.addEventListener('change', validateModalQuantity);
+        
+        // Navigation buttons
+        orderNowBtn.addEventListener('click', scrollToMenu);
+        viewMenuBtn.addEventListener('click', scrollToMenu);
+        
+        // Mobile menu
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+        closeMobileMenu.addEventListener('click', toggleMobileMenu);
+        
+        // Navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', handleNavClick);
+        });
+        
+        // Image positioning controls
+        imagePositionSlider.addEventListener('input', updateImagePosition);
+        resetPosition.addEventListener('click', resetImagePosition);
+        
+        // Close modals with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeAllOverlays();
             }
-        }
-        
-        // Show slider panel if any item has showSlider: true
-        if (showSliderPanel) {
-            imageControlPanel.style.display = 'block';
-        }
-        
-        renderMenuItems(allItems);
+        });
     }
 
-    // Render menu items to the page
-    function renderMenuItems(items) {
-        menuContainer.innerHTML = '';
-        
-        if (items.length === 0) {
-            menuContainer.innerHTML = '<p class="text-center text-gray-400 col-span-full py-8 text-lg">No menu items found matching your criteria.</p>';
-            return;
-        }
+    // Display menu items in the grid
+    function displayMenuItems(items) {
+        menuItemsContainer.innerHTML = '';
         
         items.forEach(item => {
-            const article = document.createElement('article');
-            article.className = 'bg-[#1a1a1a] rounded-xl overflow-hidden shadow-md text-base menu-item-card';
+            const menuItem = document.createElement('div');
+            menuItem.className = 'menu-item-card bg-[#1a1a1a] rounded-2xl overflow-hidden cursor-pointer';
+            menuItem.dataset.tags = item.tags || '';
             
-            // Check if item has options
-            const hasOptions = item.options && item.options.length > 0;
-
-            // Check tags separately
-            const hasDTag = item.tags.includes("D");
-            const hasMTag = item.tags.includes("M");
-
-            article.innerHTML = `
-                <div class="relative">
-                    <img 
-                        alt="${item.name}" 
-                        class="menu-item-image ${hasDTag ? 'd-tag-image' : ''} ${hasMTag ? 'm-tag-image' : ''}" 
-                        src="${item.image}">
-                    <span class="absolute top-3 left-3 bg-[#D62616] text-white text-xs font-semibold uppercase rounded px-2 py-1">
-                        ${item.tags[0]}
-                    </span>
-                </div>
-                <div class="p-4 card-content">
-                    <h4 class="font-semibold text-white mb-2 text-lg">${item.name}</h4>
-                    <p class="text-gray-400 mb-3 text-sm">${item.description}</p>
-                    <div class="flex justify-between items-center mt-auto pt-2">
-                        <span class="text-[#D62616] font-semibold text-lg">
-                            ${hasOptions ? `From £${Math.min(...item.options.map(o => o.price)).toFixed(2)}` : `£${item.price.toFixed(2)}`}
-                        </span>
+            // Determine image class based on tags
+            let imageClass = 'menu-item-image';
+            if (item.tags && item.tags.includes('d')) {
+                imageClass += ' d-tag-image';
+            } else if (item.tags && item.tags.includes('m')) {
+                imageClass += ' m-tag-image';
+            }
+            
+            menuItem.innerHTML = `
+                <div class="card-content">
+                    <img src="${item.image}" alt="${item.name}" class="${imageClass}">
+                    <div class="p-6">
+                        <h4 class="text-xl font-bold mb-2">${item.name}</h4>
+                        <p class="text-gray-400 mb-4">${item.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[#D62616] text-xl font-bold">£${item.price.toFixed(2)}</span>
+                            <button class="bg-[#D62616] text-white px-4 py-2 rounded-lg hover:bg-[#a01c10] transition-colors add-to-cart-btn">
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
             
-            // Add click event to open modal
-            article.addEventListener('click', () => {
+            // Add event listeners
+            const addToCartBtn = menuItem.querySelector('.add-to-cart-btn');
+            addToCartBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 openItemModal(item);
             });
             
-            menuContainer.appendChild(article);
+            menuItem.addEventListener('click', () => {
+                openItemModal(item);
+            });
+            
+            menuItemsContainer.appendChild(menuItem);
         });
     }
 
-    // Open modal for a menu item
+    // Filter menu items based on search input
+    function filterMenuItems() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredItems = menuData.filter(item => 
+            item.name.toLowerCase().includes(searchTerm) || 
+            item.description.toLowerCase().includes(searchTerm)
+        );
+        displayMenuItems(filteredItems);
+    }
+
+    // Filter menu items by tag
+    function filterByTag(e) {
+        const tag = e.target.dataset.tag;
+        
+        // Update active filter
+        tagFilters.forEach(filter => {
+            filter.classList.remove('active');
+        });
+        e.target.classList.add('active');
+        
+        if (tag === 'all') {
+            displayMenuItems(menuData);
+        } else {
+            const filteredItems = menuData.filter(item => 
+                item.tags && item.tags.includes(tag)
+            );
+            displayMenuItems(filteredItems);
+        }
+    }
+
+    // Open item modal with details
     function openItemModal(item) {
         currentModalItem = item;
-
-        // Reset quantity to 1
-        quantityInput.value = 1;
-        updateQuantityButtons();
-
-        // Reset drinks dropdown
-        drinksDropdown.style.display = 'none';
-        drinkSelect.innerHTML = '';
-
-        // Reset vegetable selection
-        document.querySelectorAll('input[name="vegetables"]').forEach(checkbox => {
-            checkbox.checked = false;
-        });
-
-        // Show or hide vegetable selection based on item
-        if (item.vegetables) {
-            vegetableSelection.style.display = 'block';
-        } else {
-            vegetableSelection.style.display = 'none';
-        }
-
-        // NEW: Show or hide drinks dropdown based on item
-        if (item.showDrinksDropdown) {
-            drinksDropdown.style.display = 'block';
-            // Populate drinks dropdown
-            drinkOptions.forEach(drink => {
-                const option = document.createElement('option');
-                option.value = drink;
-                option.textContent = drink;
-                drinkSelect.appendChild(option);
-            });
-        }
-
-        // Set modal content
+        currentModalOptions = {};
+        currentModalPrice = item.price;
+        
+        // Reset modal state
         modalImage.src = item.image;
         modalTitle.textContent = item.name;
         modalDescription.textContent = item.description;
-
+        modalBasePrice.textContent = item.price.toFixed(2);
+        modalQuantity.value = 1;
+        updateQuantityControls();
+        
         // Clear previous options
         modalOptions.innerHTML = '';
-
-        // NEW: Add combo items display if it's a combo
-        if (item.comboItems && item.comboItems.length > 0) {
-            // Remove any old combo display before adding a new one
-            const existingCombo = document.querySelector('.combo-items-section');
-            if (existingCombo) existingCombo.remove();
-
-            const comboItemsHTML = renderComboItems(item.comboItems);
-            modalDescription.insertAdjacentHTML('afterend', comboItemsHTML);
-        }
-
-
-        // ----- OPTIONS LOGIC -----
-        const hasOptions = item.options && item.options.length > 0;
-        let selectedOptionIndex = 0;
-        let basePrice = hasOptions ? item.options[0].price : item.price;
-
-        if (hasOptions) {
-            const optionsDiv = document.createElement('div');
-            optionsDiv.className = 'modal-option';
-
-            // check if all options same price
-            const allSamePrice = item.options.every(
-                opt => opt.price === item.options[0].price
-            );
-
-            optionsDiv.innerHTML = `
-                <label for="modal-option-select">Choose:</label>
-                <select id="modal-option-select" class="option-selector">
-                    ${item.options
-                        .map(
-                            (option, index) => `
-                        <option value="${index}" data-price="${option.price}">
-                            ${
-                                allSamePrice
-                                    ? option.name
-                                    : `${option.name} - £${option.price.toFixed(2)}`
-                            }
-                        </option>
-                    `
-                        )
-                        .join('')}
-                </select>
-            `;
-            modalOptions.appendChild(optionsDiv);
-
-            // bind AFTER element exists
-            const optionSelect = optionsDiv.querySelector('#modal-option-select');
-            optionSelect.addEventListener('change', e => {
-                selectedOptionIndex = parseInt(e.target.value, 10);
-                basePrice = item.options[selectedOptionIndex].price;
-                updateModalPrices(item, basePrice);
-            });
-        } else {
-            basePrice = item.price;
-        }
-
-        // ----- DIPS ----- (changed from sauces)
-        if (item.sauces) {
-            // Find the category for dip options
-            let dipCategory = item.tags.find(tag =>
-                dipOptions.hasOwnProperty(tag)
-            );
-
-            if (dipCategory && dipOptions[dipCategory]) {
-                const dipDiv = document.createElement('div');
-                dipDiv.className = 'modal-option';
-
-                // UPDATED: Determine the label text based on category - Changed for Hot Tenders
-                let labelText = 'Dip';
-                if (dipCategory === 'wings') {
-                    labelText = 'Flavour';
-                } else if (dipCategory === 'hottenders') {
-                    labelText = 'Dips'; // Changed from 'Flavour' to 'Dips' for Hot Tenders
-                }
-
-                dipDiv.innerHTML = `
-                    <label for="modal-dip-select">${labelText}:</label>
-                    <select id="modal-dip-select" class="option-selector">
-                        ${dipOptions[dipCategory]
-                            .map(
-                                dip => `<option value="${dip}">${dip}</option>`
-                            )
-                            .join('')}
+        
+        // Hide all special sections initially
+        drinksDropdown.style.display = 'none';
+        vegetableSelection.style.display = 'none';
+        burgerSelection.style.display = 'none';
+        
+        // Check if item has options
+        if (item.options) {
+            Object.keys(item.options).forEach(optionName => {
+                const option = item.options[optionName];
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'modal-option';
+                
+                optionDiv.innerHTML = `
+                    <label>${optionName}:</label>
+                    <select class="option-selector" data-option="${optionName}">
+                        ${Object.keys(option).map(key => 
+                            `<option value="${key}" ${key === 'none' ? 'selected' : ''}>${key} ${option[key] !== 0 ? `(+£${option[key].toFixed(2)})` : ''}</option>`
+                        ).join('')}
                     </select>
                 `;
-                modalOptions.appendChild(dipDiv);
-            }
+                
+                modalOptions.appendChild(optionDiv);
+                
+                // Add event listener for option changes
+                const selector = optionDiv.querySelector('select');
+                selector.addEventListener('change', updateModalPrice);
+            });
         }
-
-        // Update prices initially
-        updateModalPrices(item, basePrice);
-
+        
+        // Show drinks dropdown for meal deals (m tag)
+        if (item.tags && item.tags.includes('m')) {
+            drinksDropdown.style.display = 'block';
+            drinkSelect.value = '';
+            drinkSelect.addEventListener('change', updateModalPrice);
+        }
+        
+        // Show vegetable selection for kebabs (k tag)
+        if (item.tags && item.tags.includes('k')) {
+            vegetableSelection.style.display = 'block';
+            // Reset vegetable checkboxes
+            const vegCheckboxes = vegetableSelection.querySelectorAll('input[type="checkbox"]');
+            vegCheckboxes.forEach(checkbox => {
+                checkbox.checked = false;
+                checkbox.addEventListener('change', updateModalPrice);
+            });
+        }
+        
+        // Show burger selection for items with bs tag
+        if (item.tags && item.tags.includes('bs')) {
+            burgerSelection.style.display = 'block';
+            populateBurgerOptions();
+            burgerSelect.addEventListener('change', updateModalPrice);
+        }
+        
+        // Update price initially
+        updateModalPrice();
+        
         // Show modal
         itemModal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
+        overlay.classList.add('active');
+        
+        // Show image control panel for d-tag items
+        if (item.tags && item.tags.includes('d')) {
+            imageControlPanel.style.display = 'block';
+        } else {
+            imageControlPanel.style.display = 'none';
+        }
     }
 
-    // NEW: Update quantity buttons state
-    function updateQuantityButtons() {
-        const quantity = parseInt(quantityInput.value);
-        decreaseQuantityBtn.disabled = quantity <= 1;
-        increaseQuantityBtn.disabled = quantity >= MAX_QUANTITY_PER_ITEM;
+    // Populate burger options in the dropdown
+    function populateBurgerOptions() {
+        burgerSelect.innerHTML = '';
+        burgerOptions.forEach(burger => {
+            const option = document.createElement('option');
+            option.value = burger;
+            option.textContent = `${burger} - £${burgerPrice.toFixed(2)}`;
+            burgerSelect.appendChild(option);
+        });
     }
 
-    // Update prices in modal
-    function updateModalPrices(item, basePrice) {
-        const quantity = parseInt(quantityInput.value);
-        modalBasePrice.textContent = (basePrice * quantity).toFixed(2);
-    }
-
-    // Close modal
+    // Close item modal
     function closeItemModal() {
         itemModal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-        currentModalItem = null;
+        overlay.classList.remove('active');
+        imageControlPanel.style.display = 'none';
     }
 
-    // Find menu item by name
-    function findMenuItemByName(name) {
-        for (const fileName in menuData) {
-            if (menuData.hasOwnProperty(fileName)) {
-                const item = menuData[fileName].items.find(item => item.name === name);
-                if (item) return item;
-            }
-        }
-        return null;
-    }
-
-    // Filter menu items based on search and tags - FIXED VERSION
-    function filterMenuItems() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const activeTag = document.querySelector('.tag-filter.active')?.getAttribute('data-tag') || 'all';
+    // Update modal price based on selections
+    function updateModalPrice() {
+        let totalPrice = currentModalItem.price;
         
-        let allItems = [];
-        for (const fileName in menuData) {
-            if (menuData.hasOwnProperty(fileName)) {
-                allItems = allItems.concat(menuData[fileName].items);
+        // Add option prices
+        const optionSelectors = modalOptions.querySelectorAll('select');
+        optionSelectors.forEach(selector => {
+            const optionName = selector.dataset.option;
+            const selectedValue = selector.value;
+            if (selectedValue !== 'none' && currentModalItem.options[optionName]) {
+                totalPrice += currentModalItem.options[optionName][selectedValue];
             }
-        }
-        
-        let filteredItems = allItems.filter(item => {
-            const matchesSearch = item.name.toLowerCase().includes(searchTerm) || 
-                                item.description.toLowerCase().includes(searchTerm);
-            
-            let matchesTag = activeTag === 'all';
-            
-            // Check if item has the active tag
-            if (activeTag !== 'all') {
-                matchesTag = item.tags.includes(activeTag);
-            }
-            
-            return matchesSearch && matchesTag;
         });
         
-        renderMenuItems(filteredItems);
+        // Add drink price if selected
+        if (drinksDropdown.style.display === 'block' && drinkSelect.value) {
+            const selectedDrink = drinkSelect.options[drinkSelect.selectedIndex];
+            totalPrice += parseFloat(selectedDrink.dataset.price);
+        }
+        
+        // Add burger prices if selected
+        if (burgerSelection.style.display === 'block') {
+            const selectedBurgers = Array.from(burgerSelect.selectedOptions);
+            totalPrice += selectedBurgers.length * burgerPrice;
+        }
+        
+        currentModalPrice = totalPrice;
+        modalBasePrice.textContent = totalPrice.toFixed(2);
+    }
+
+    // Quantity control functions
+    function decreaseModalQuantity() {
+        if (modalQuantity.value > 1) {
+            modalQuantity.value = parseInt(modalQuantity.value) - 1;
+            updateQuantityControls();
+        }
+    }
+
+    function increaseModalQuantity() {
+        if (modalQuantity.value < 10) {
+            modalQuantity.value = parseInt(modalQuantity.value) + 1;
+            updateQuantityControls();
+        }
+    }
+
+    function validateModalQuantity() {
+        let value = parseInt(modalQuantity.value);
+        if (isNaN(value) || value < 1) {
+            modalQuantity.value = 1;
+        } else if (value > 10) {
+            modalQuantity.value = 10;
+        }
+        updateQuantityControls();
+    }
+
+    function updateQuantityControls() {
+        decreaseQuantity.disabled = modalQuantity.value <= 1;
+        increaseQuantity.disabled = modalQuantity.value >= 10;
     }
 
     // Add item to cart from modal
     function addToCartFromModal() {
-        if (!currentModalItem) return;
+        const quantity = parseInt(modalQuantity.value);
         
-        const quantity = parseInt(quantityInput.value);
-        const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-        let selectedOption = null;
-        let selectedDip = null;
-        let selectedVegetables = [];
-        let selectedDrink = null;
-        let basePrice = currentModalItem.price;
-        
-        // Get selected option if exists
-        if (hasOptions) {
-            const optionSelect = document.getElementById('modal-option-select');
-            const optionIndex = parseInt(optionSelect.value);
-            selectedOption = currentModalItem.options[optionIndex].name;
-            basePrice = currentModalItem.options[optionIndex].price;
-        }
-        
-        // Get selected dip if exists (changed from sauce)
-        if (currentModalItem.sauces) {
-            const dipSelect = document.getElementById('modal-dip-select');
-            if (dipSelect) {
-                selectedDip = dipSelect.value;
+        // Collect options
+        const options = {};
+        const optionSelectors = modalOptions.querySelectorAll('select');
+        optionSelectors.forEach(selector => {
+            const optionName = selector.dataset.option;
+            const selectedValue = selector.value;
+            if (selectedValue !== 'none') {
+                options[optionName] = selectedValue;
             }
-        }
+        });
         
-        // Get selected vegetables if applicable
-        if (currentModalItem.vegetables) {
-            const vegetableCheckboxes = document.querySelectorAll('input[name="vegetables"]:checked');
-            selectedVegetables = Array.from(vegetableCheckboxes).map(cb => cb.value);
-        }
-        
-        // NEW: Get selected drink if applicable
-        if (currentModalItem.showDrinksDropdown) {
-            selectedDrink = drinkSelect.value;
-        }
-        
-        const price = basePrice;
-        
-        let displayName = currentModalItem.name;
-        if (selectedOption) displayName += ` (${selectedOption})`;
-        if (selectedDip) displayName += ` with ${selectedDip}`;
-        if (selectedVegetables.length > 0) displayName += ` with ${selectedVegetables.join(', ')}`;
-        // NEW: Add drink to display name if selected
-        if (selectedDrink) displayName += ` with ${selectedDrink}`;
-        
-        // NEW: Add combo indicator for receipt
-        if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
-            displayName += ` [Combo Deal]`;
-        }
-
-        // Check if item already exists in cart
-        const existingItem = cart.find(item => item.name === displayName);
-        
-        if (existingItem) {
-            existingItem.quantity += quantity;
-        } else {
-            const cartItem = {
-                name: displayName,
-                price,
-                quantity,
-                selectedOption,
-                selectedDip,
-                selectedVegetables,
-                selectedDrink: selectedDrink
+        // Collect drink selection
+        let drink = null;
+        if (drinksDropdown.style.display === 'block' && drinkSelect.value) {
+            const selectedDrink = drinkSelect.options[drinkSelect.selectedIndex];
+            drink = {
+                name: selectedDrink.value,
+                price: parseFloat(selectedDrink.dataset.price)
             };
-            
-            // NEW: Store combo items for backend processing
-            if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
-                cartItem.isCombo = true;
-                cartItem.comboItems = currentModalItem.comboItems;
-            }
-            
-            cart.push(cartItem);
+        }
+        
+        // Collect vegetable selections
+        let vegetables = [];
+        if (vegetableSelection.style.display === 'block') {
+            const vegCheckboxes = vegetableSelection.querySelectorAll('input[type="checkbox"]:checked');
+            vegetables = Array.from(vegCheckboxes).map(checkbox => checkbox.value);
+        }
+        
+        // Collect burger selections
+        let burgers = [];
+        if (burgerSelection.style.display === 'block') {
+            const selectedBurgers = Array.from(burgerSelect.selectedOptions);
+            burgers = selectedBurgers.map(option => option.value);
+        }
+        
+        // Add to cart
+        for (let i = 0; i < quantity; i++) {
+            cart.push({
+                ...currentModalItem,
+                options: Object.keys(options).length > 0 ? options : undefined,
+                drink: drink,
+                vegetables: vegetables.length > 0 ? vegetables : undefined,
+                burgers: burgers.length > 0 ? burgers : undefined,
+                finalPrice: currentModalPrice
+            });
         }
         
         updateCart();
         closeItemModal();
-        openCartDrawer();
+        
+        // Show confirmation
+        showNotification(`Added ${quantity} ${currentModalItem.name} to cart`);
     }
 
-    // Open cart drawer
-    function openCartDrawer() {
-        cartDrawer.classList.add('open');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    // Cart functionality
+    function toggleCart() {
+        cartDrawer.classList.toggle('open');
+        overlay.classList.toggle('active');
     }
 
-    // Close cart drawer
-    function closeCartDrawer() {
+    function closeAllOverlays() {
         cartDrawer.classList.remove('open');
         overlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
+        itemModal.style.display = 'none';
+        imageControlPanel.style.display = 'none';
+        mobileMenu.classList.remove('active');
     }
 
-    // Update cart display
     function updateCart() {
-        // Clear current items
         cartItems.innerHTML = '';
         
-        let total = 0;
-        let count = 0;
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<li class="text-center text-gray-400 py-8">Your cart is empty</li>';
+            cartSubtotal.textContent = '£0.00';
+            cartCount.textContent = 'Cart (0)';
+            clearCartButton.disabled = true;
+            checkoutButton.disabled = true;
+            return;
+        }
         
-        // Add items to cart display
+        clearCartButton.disabled = false;
+        checkoutButton.disabled = false;
+        
+        // Group items by name and options for display
+        const itemGroups = {};
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-            count += item.quantity;
+            const key = JSON.stringify({
+                name: item.name,
+                options: item.options,
+                drink: item.drink,
+                vegetables: item.vegetables,
+                burgers: item.burgers
+            });
             
+            if (!itemGroups[key]) {
+                itemGroups[key] = {
+                    item: item,
+                    quantity: 0
+                };
+            }
+            itemGroups[key].quantity++;
+        });
+        
+        // Display grouped items
+        Object.values(itemGroups).forEach(group => {
             const li = document.createElement('li');
-            li.className = 'flex justify-between items-center text-white text-sm border-b border-[#222222] pb-3';
+            li.className = 'bg-[#222] rounded-lg p-4';
+            
+            let optionsText = '';
+            if (group.item.options) {
+                optionsText = Object.values(group.item.options).map(opt => 
+                    `<span class="text-xs bg-[#333] px-2 py-1 rounded">${opt}</span>`
+                ).join('');
+            }
+            
+            let drinkText = '';
+            if (group.item.drink) {
+                drinkText = `<div class="text-xs text-gray-400">Drink: ${group.item.drink.name}</div>`;
+            }
+            
+            let vegetablesText = '';
+            if (group.item.vegetables && group.item.vegetables.length > 0) {
+                vegetablesText = `<div class="text-xs text-gray-400">Veg: ${group.item.vegetables.join(', ')}</div>`;
+            }
+            
+            let burgersText = '';
+            if (group.item.burgers && group.item.burgers.length > 0) {
+                burgersText = `<div class="text-xs text-gray-400">Burgers: ${group.item.burgers.join(', ')}</div>`;
+            }
+            
             li.innerHTML = `
-                <div>
-                    <div class="font-semibold">${item.quantity} x ${item.name}</div>
-                    <div class="text-[#D62616]">£${item.price.toFixed(2)} each</div>
-                </div>
-                <div class="flex items-center">
-                    <span class="font-semibold mr-3">£${itemTotal.toFixed(2)}</span>
-                    <button class="remove-item text-red-500 hover:text-red-700" data-name="${item.name}">
-                        <i class="fas fa-trash"></i>
+                <div class="flex justify-between items-start mb-2">
+                    <div class="flex-1">
+                        <h4 class="text-white font-semibold">${group.item.name}</h4>
+                        ${optionsText ? `<div class="mt-1 space-x-1">${optionsText}</div>` : ''}
+                        ${drinkText}
+                        ${vegetablesText}
+                        ${burgersText}
+                    </div>
+                    <button class="remove-item text-[#D62616] hover:text-[#e05a00] ml-2">
+                        <i class="fas fa-times"></i>
                     </button>
                 </div>
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center space-x-2">
+                        <button class="decrease-item text-white bg-[#333] w-6 h-6 rounded flex items-center justify-center">
+                            -
+                        </button>
+                        <span class="text-white">${group.quantity}</span>
+                        <button class="increase-item text-white bg-[#333] w-6 h-6 rounded flex items-center justify-center">
+                            +
+                        </button>
+                    </div>
+                    <span class="text-white font-semibold">£${(group.item.finalPrice * group.quantity).toFixed(2)}</span>
+                </div>
             `;
+            
+            // Add event listeners for item controls
+            const removeBtn = li.querySelector('.remove-item');
+            const decreaseBtn = li.querySelector('.decrease-item');
+            const increaseBtn = li.querySelector('.increase-item');
+            
+            removeBtn.addEventListener('click', () => {
+                removeAllFromCart(group.item);
+            });
+            
+            decreaseBtn.addEventListener('click', () => {
+                removeFromCart(group.item);
+            });
+            
+            increaseBtn.addEventListener('click', () => {
+                addToCart(group.item);
+            });
             
             cartItems.appendChild(li);
         });
         
-        // Update subtotal and count
-        cartSubtotal.textContent = `£${total.toFixed(2)}`;
-        cartCount.textContent = `Cart (${count})`;
-        
-        // Enable/disable clear cart button based on whether cart has items
-        clearCartButton.disabled = cart.length === 0;
-        
-        // Update checkout button text
-        placeOrderButton.textContent = `Place Order – £${total.toFixed(2)}`;
-        
-        // Add event listeners to remove buttons
-        document.querySelectorAll('.remove-item').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const name = e.currentTarget.getAttribute('data-name');
-                removeFromCart(name);
-            });
-        });
+        // Update cart summary
+        const subtotal = cart.reduce((sum, item) => sum + item.finalPrice, 0);
+        cartSubtotal.textContent = `£${subtotal.toFixed(2)}`;
+        cartCount.textContent = `Cart (${cart.length})`;
     }
 
-    // Remove item from cart
-    function removeFromCart(name) {
-        const itemIndex = cart.findIndex(item => item.name === name);
-        
-        if (itemIndex !== -1) {
-            cart.splice(itemIndex, 1);
-            updateCart();
-        }
-    }
-
-    // NEW: Clear entire cart
-    function clearCart() {
-        cart = [];
+    function addToCart(item) {
+        cart.push({...item});
         updateCart();
     }
 
-    // Show checkout page
-    function showCheckoutPage() {
-        if (cart.length === 0) {
-            const customAlert = document.createElement('div');
-            customAlert.innerHTML = `
-                <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1001; display: flex; align-items: center; justify-content: center;">
-                    <div style="background: #1a1a1a; padding: 2rem; border-radius: 1rem; text-align: center; color: white;">
-                        <p class="mb-4">Your cart is empty. Please add some items before checkout.</p>
-                        <button id="custom-alert-ok" style="background: #D62616; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem;">OK</button>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(customAlert);
-            document.getElementById('custom-alert-ok').onclick = () => customAlert.remove();
-            return;
+    function removeFromCart(itemToRemove) {
+        const index = cart.findIndex(item => 
+            item.name === itemToRemove.name &&
+            JSON.stringify(item.options) === JSON.stringify(itemToRemove.options) &&
+            JSON.stringify(item.drink) === JSON.stringify(itemToRemove.drink) &&
+            JSON.stringify(item.vegetables) === JSON.stringify(itemToRemove.vegetables) &&
+            JSON.stringify(item.burgers) === JSON.stringify(itemToRemove.burgers)
+        );
+        
+        if (index !== -1) {
+            cart.splice(index, 1);
+            updateCart();
         }
+    }
 
-        // NEW: Close cart drawer when proceeding to checkout
-        closeCartDrawer();
+    function removeAllFromCart(itemToRemove) {
+        cart = cart.filter(item => 
+            !(item.name === itemToRemove.name &&
+            JSON.stringify(item.options) === JSON.stringify(itemToRemove.options) &&
+            JSON.stringify(item.drink) === JSON.stringify(itemToRemove.drink) &&
+            JSON.stringify(item.vegetables) === JSON.stringify(itemToRemove.vegetables) &&
+            JSON.stringify(item.burgers) === JSON.stringify(itemToRemove.burgers))
+        );
+        updateCart();
+    }
+
+    function clearCart() {
+        if (confirm('Are you sure you want to clear your cart?')) {
+            cart = [];
+            updateCart();
+            showNotification('Cart cleared');
+        }
+    }
+
+    // Checkout functionality
+    function openCheckout() {
+        if (cart.length === 0) return;
         
         mainContent.style.display = 'none';
         checkoutPage.style.display = 'block';
+        updateCheckoutDisplay();
+    }
 
-        // Populate checkout items
+    function closeCheckout() {
+        mainContent.style.display = 'block';
+        checkoutPage.style.display = 'none';
+        closeAllOverlays();
+    }
+
+    function updateCheckoutDisplay() {
         checkoutItems.innerHTML = '';
-        let total = 0;
-
+        
+        // Group items for display (same as cart)
+        const itemGroups = {};
         cart.forEach(item => {
-            const itemTotal = item.price * item.quantity;
-            total += itemTotal;
-
+            const key = JSON.stringify({
+                name: item.name,
+                options: item.options,
+                drink: item.drink,
+                vegetables: item.vegetables,
+                burgers: item.burgers
+            });
+            
+            if (!itemGroups[key]) {
+                itemGroups[key] = {
+                    item: item,
+                    quantity: 0
+                };
+            }
+            itemGroups[key].quantity++;
+        });
+        
+        // Display grouped items
+        Object.values(itemGroups).forEach(group => {
             const div = document.createElement('div');
-            div.className = 'flex justify-between items-center';
+            div.className = 'flex justify-between items-center py-2 border-b border-[#e2e8f0]';
+            
+            let optionsText = '';
+            if (group.item.options) {
+                optionsText = Object.values(group.item.options).join(', ');
+            }
+            
+            let extras = [];
+            if (group.item.drink) extras.push(group.item.drink.name);
+            if (group.item.vegetables) extras.push(...group.item.vegetables);
+            if (group.item.burgers) extras.push(...group.item.burgers.map(b => `${b} Burger`));
+            
+            const extrasText = extras.length > 0 ? `(${extras.join(', ')})` : '';
+            
             div.innerHTML = `
-                <div class="flex-1">
-                    <div class="font-semibold">${item.quantity} x ${item.name}</div>
-                    <div class="text-sm text-gray-400">£${item.price.toFixed(2)} each</div>
+                <div>
+                    <div class="font-semibold">${group.quantity}x ${group.item.name}</div>
+                    ${optionsText ? `<div class="text-sm text-gray-600">${optionsText}</div>` : ''}
+                    ${extrasText ? `<div class="text-sm text-gray-600">${extrasText}</div>` : ''}
                 </div>
-                <div class="font-semibold">£${itemTotal.toFixed(2)}</div>
+                <div class="font-semibold">£${(group.item.finalPrice * group.quantity).toFixed(2)}</div>
             `;
-
+            
             checkoutItems.appendChild(div);
         });
-
-        checkoutTotal.textContent = `£${total.toFixed(2)}`;
-        placeOrderButton.textContent = `Place Order – £${total.toFixed(2)}`;
         
-        // NEW: Reset checkout form state
-        deliveryTypeDropdown.value = '';
-        detailsContainer.style.display = 'none';
-        placeOrderButton.disabled = true;
+        // Update totals
+        const subtotal = cart.reduce((sum, item) => sum + item.finalPrice, 0);
+        const delivery = subtotal > 0 ? 2.99 : 0; // Example delivery fee
+        const total = subtotal + delivery;
+        
+        checkoutSubtotal.textContent = `£${subtotal.toFixed(2)}`;
+        checkoutDelivery.textContent = `£${delivery.toFixed(2)}`;
+        checkoutTotal.textContent = `£${total.toFixed(2)}`;
     }
 
-    // Show main content
-    function showMainContent() {
-        checkoutPage.style.display = 'none';
-        mainContent.style.display = 'block';
+    function placeOrder(e) {
+        e.preventDefault();
+        
+        // Here you would typically send the order to a server
+        alert('Order placed successfully! Thank you for your order.');
+        
+        // Clear cart and return to menu
+        cart = [];
+        updateCart();
+        closeCheckout();
     }
-    
-    // NEW: Check if all required fields are filled to enable the place order button
-    function checkFormValidity() {
-        let allFilled = true;
 
-        checkoutInputs.forEach(input => {
-            if (!input.value.trim()) {
-                allFilled = false;
-            }
+    // Navigation functions
+    function scrollToMenu() {
+        document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function toggleMobileMenu() {
+        mobileMenu.classList.toggle('active');
+    }
+
+    function handleNavClick(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+        
+        // Update active section
+        navLinks.forEach(link => {
+            link.classList.remove('active-section');
         });
-
-        if (deliveryTypeDropdown.value === 'collection') {
-            if (!pickupTimeDropdown.value.trim()) {
-                allFilled = false;
-            }
-        }
-
-        placeOrderButton.disabled = !allFilled;
+        this.classList.add('active-section');
+        
+        // Close mobile menu if open
+        mobileMenu.classList.remove('active');
     }
 
-    function buildItemsForBackend(cart) {
-        const backendItems = [];
-
-        cart.forEach(item => {
-            // Handle combo items separately
-            if (item.isCombo && item.comboItems) {
-                // Add the main combo item
-                backendItems.push({
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity,
-                    isCombo: true,
-                    comboItems: item.comboItems
-                });
-            } 
-            // Handle regular items with drinks
-            else if (item.selectedDrink) {
-                // main item without the drink
-                backendItems.push({
-                    name: item.name.replace(/ with .*$/, ''),
-                    price: item.price,
-                    quantity: item.quantity,
-                    selectedOption: item.selectedOption,
-                    selectedDip: item.selectedDip,
-                    selectedVegetables: item.selectedVegetables,
-                    selectedDrink: item.selectedDrink
-                });
-            } else {
-                backendItems.push({
-                    name: item.name,
-                    price: item.price,
-                    quantity: item.quantity,
-                    selectedOption: item.selectedOption,
-                    selectedDip: item.selectedDip,
-                    selectedVegetables: item.selectedVegetables
-                });
-            }
+    // Image positioning functionality
+    function updateImagePosition() {
+        const value = imagePositionSlider.value;
+        positionValue.textContent = `${value}%`;
+        document.documentElement.style.setProperty('--image-position-y', `${value}%`);
+        
+        // Update all d-tag images
+        const dTagImages = document.querySelectorAll('.d-tag-image');
+        dTagImages.forEach(img => {
+            img.style.objectPosition = `50% ${value}%`;
         });
-
-        return backendItems;
     }
 
-    // Handle form submission
-    async function handleFormSubmit(e) {
-    e.preventDefault();
-
-    // Check validity one last time before submitting
-    checkFormValidity();
-    if (placeOrderButton.disabled) {
-        return;
+    function resetImagePosition() {
+        imagePositionSlider.value = 0;
+        updateImagePosition();
     }
 
-    // collect order data to send to backend if needed
-    const deliveryType = document.getElementById('delivery-type').value;
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const order = {
-        deliveryType,
-        customer: {
-            fullName: document.getElementById('full-name').value,
-            phone: document.getElementById('phone').value,
-            email: document.getElementById('email').value,
-            specialInstructions: document.getElementById('special-instructions').value
-        },
-        pickupTime: pickupTimeDropdown.value,   // ✅ new field
-        items: buildItemsForBackend(cart),
-        total: total.toFixed(2)
-    };
-
-    const confirmationMessage = document.getElementById('confirmation-message');
-    const orderConfirmation   = document.getElementById('order-confirmation');
-
-    // send to backend only if API_BASE is set
-    if (API_BASE) {
-        try {
-            const response = await fetch(`${API_BASE}/orders`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(order)
-            });
-            if (!response.ok) throw new Error('Order failed');
-            const data = await response.json();
-
-            // e.g. {status:"approved", message:"Ready at 7:30pm"}
-            if (data.status === 'approved') {
-                if (deliveryType === 'collection' && pickupTimeDropdown.value) {
-                    confirmationMessage.textContent = data.message || `Your order is approved! Pickup at ${pickupTimeDropdown.value}.`;
-                } else {
-                    confirmationMessage.textContent = data.message || 'Your order has been approved.';
-                }
-            } else if (data.status === 'denied') {
-                confirmationMessage.textContent = data.message || 'Sorry, your order could not be processed.';
-            } else {
-                confirmationMessage.textContent = 'Unexpected reply from server.';
-            }
-        } catch (err) {
-            confirmationMessage.textContent = 'There was a problem sending your order.';
-        }
-    } else {
-        // current 2-second fake message stays for local demo
+    // Utility functions
+    function showNotification(message) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = 'fixed top-4 right-4 bg-[#D62616] text-white px-6 py-3 rounded-lg shadow-lg z-50';
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        // Remove notification after 3 seconds
         setTimeout(() => {
-            if (deliveryType === 'collection') {
-                confirmationMessage.textContent = `Your order has been placed successfully for pickup at ${pickupTimeDropdown.value}.`;
-            } else {
-                confirmationMessage.textContent = 'Your order has been placed successfully!';
-            }
-        }, 2000);
+            notification.remove();
+        }, 3000);
     }
-    orderConfirmation.classList.remove('hidden');
-    }
-    
-    // Handle image position adjustment
-    function updateImagePosition(value) {
-        document.documentElement.style.setProperty('--image-position-y', value + '%');
-        positionValue.textContent = value + '%';
-    }
-    
-    // NEW: Scroll spy functionality - SIMPLIFIED AND WORKING
-    function initScrollSpy() {
-        const sections = document.querySelectorAll('section[id]');
+
+    // Update active section on scroll
+    window.addEventListener('scroll', function() {
+        const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
         
-        function updateActiveLink() {
-            let current = '';
-            const scrollPos = window.pageYOffset;
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                const sectionHeight = section.offsetHeight;
-                const sectionId = section.getAttribute('id');
-                
-                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                    current = sectionId;
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active-section');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active-section');
-                }
-            });
-        }
-        
-        window.addEventListener('scroll', updateActiveLink);
-        // Initial call to set active section on page load
-        updateActiveLink();
-    }
-
-    // NEW: Mobile menu functionality
-    function initMobileMenu() {
-        // Toggle mobile menu
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        // Close mobile menu
-        closeMobileMenu.addEventListener('click', () => {
-            mobileMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-        
-        // Close mobile menu when clicking on a link
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-        
-        // Close mobile menu when clicking outside
-        mobileMenu.addEventListener('click', (e) => {
-            if (e.target === mobileMenu) {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
-    }
-
-    // Initialize the page
-    function init() {
-        // Load menu items
-        loadMenuItems();
-        
-        // Event listeners
-        cartButton.addEventListener('click', openCartDrawer);
-        closeCart.addEventListener('click', closeCartDrawer);
-        overlay.addEventListener('click', closeCartDrawer);
-        
-        // NEW: Clear cart button event listener
-        clearCartButton.addEventListener('click', clearCart);
-        
-        // Search and filter events
-        searchInput.addEventListener('input', filterMenuItems);
-        
-        tagFilters.forEach(filter => {
-            filter.addEventListener('click', () => {
-                tagFilters.forEach(f => f.classList.remove('active'));
-                filter.classList.add('active');
-                filterMenuItems();
-            });
-        });
-        
-        // Checkout events
-        checkoutButton.addEventListener('click', showCheckoutPage);
-        orderNowButton.addEventListener('click', showCheckoutPage);
-        backToMenuButton.addEventListener('click', showMainContent);
-        
-        // View Menu button event
-        viewMenuButton.addEventListener('click', () => {
-            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
-            
-            // Update active navigation link
-            document.querySelectorAll('.nav-link').forEach(navLink => {
-                navLink.classList.remove('active-section');
-            });
-            document.querySelector('[href="#menu"]').classList.add('active-section');
-        });
-        
-        // Form submission
-        checkoutForm.addEventListener('submit', handleFormSubmit);
-        
-        // Confirmation button
-        confirmOkButton.addEventListener('click', () => {
-            orderConfirmation.classList.add('hidden');
-            showMainContent();
-            cart = [];
-            updateCart();
-            checkoutForm.reset();
-            // NEW: Also reset the checkout form state after order
-            deliveryTypeDropdown.value = '';
-            detailsContainer.style.display = 'none';
-            placeOrderButton.disabled = true;
-        });
-        
-        // Modal events
-        closeModal.addEventListener('click', closeItemModal);
-        modalAddBase.addEventListener('click', addToCartFromModal);
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === itemModal) {
-                closeItemModal();
+        let currentSection = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 100;
+            const sectionHeight = section.clientHeight;
+            if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
             }
         });
         
-        // Set initial active filter
-        document.querySelector('[data-tag="all"]').classList.add('active');
-        
-        // Image position control events
-        imagePositionSlider.addEventListener('input', (e) => {
-            updateImagePosition(e.target.value);
-        });
-        
-        resetPositionButton.addEventListener('click', () => {
-            imagePositionSlider.value = 0;
-            updateImagePosition(0);
-        });
-
-        // NEW: Checkout form logic
-        deliveryTypeDropdown.addEventListener('change', (e) => {
-            if (e.target.value === 'collection') {
-                detailsContainer.style.display = 'block';
-                pickupTimeContainer.style.display = 'block';
-                checkFormValidity();
-            } else {
-                detailsContainer.style.display = 'none';
-                pickupTimeContainer.style.display = 'none';
-                placeOrderButton.disabled = true;
+        navLinks.forEach(link => {
+            link.classList.remove('active-section');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active-section');
             }
-        });
-
-        checkoutInputs.forEach(input => {
-            input.addEventListener('input', checkFormValidity);
-        });
-
-        // NEW: Quantity selector events
-        decreaseQuantityBtn.addEventListener('click', () => {
-            let value = parseInt(quantityInput.value);
-            if (value > 1) {
-                quantityInput.value = value - 1;
-                updateQuantityButtons();
-                if (currentModalItem) {
-                    const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                    let basePrice = hasOptions ? 
-                        currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                        currentModalItem.price;
-                    updateModalPrices(currentModalItem, basePrice);
-                }
-            }
-        });
-
-        increaseQuantityBtn.addEventListener('click', () => {
-            let value = parseInt(quantityInput.value);
-            if (value < MAX_QUANTITY_PER_ITEM) {
-                quantityInput.value = value + 1;
-                updateQuantityButtons();
-                if (currentModalItem) {
-                    const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                    let basePrice = hasOptions ? 
-                        currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                        currentModalItem.price;
-                    updateModalPrices(currentModalItem, basePrice);
-                }
-            }
-        });
-
-        quantityInput.addEventListener('input', (e) => {
-            let value = parseInt(e.target.value);
-            if (isNaN(value) || value < 1) {
-                e.target.value = 1;
-            } else if (value > MAX_QUANTITY_PER_ITEM) {
-                e.target.value = MAX_QUANTITY_PER_ITEM;
-            }
-            updateQuantityButtons();
-            if (currentModalItem) {
-                const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                let basePrice = hasOptions ? 
-                    currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                    currentModalItem.price;
-                updateModalPrices(currentModalItem, basePrice);
-            }
-        });
-
-        quantityInput.addEventListener('change', (e) => {
-            let value = parseInt(e.target.value);
-            if (isNaN(value) || value < 1) {
-                e.target.value = 1;
-            } else if (value > MAX_QUANTITY_PER_ITEM) {
-                e.target.value = MAX_QUANTITY_PER_ITEM;
-            }
-            updateQuantityButtons();
-            if (currentModalItem) {
-                const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                let basePrice = hasOptions ? 
-                    currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                    currentModalItem.price;
-                updateModalPrices(currentModalItem, basePrice);
-            }
-        });
-        
-        // Initialize scroll spy
-        initScrollSpy();
-        
-        // Initialize mobile menu
-        initMobileMenu();
-    }
-
-    // DOM Content Loaded
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Load JSON and init app
-        await loadAllJSON();
-        init();
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Update active link immediately
-                    document.querySelectorAll('.nav-link').forEach(navLink => {
-                        navLink.classList.remove('active-section');
-                    });
-                    link.classList.add('active-section');
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (mobileMenu.classList.contains('active')) {
-                        mobileMenu.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                }
-            });
         });
     });
 </script>
 </body>
-
 </html>
