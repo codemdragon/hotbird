@@ -3,7 +3,7 @@
     {
       "name": "Buffalo Kick Sauce",
       "description": "Spicy buffalo sauce with a tangy kick",
-      "image": "images/Buffalo Kick Sauce.jpg",
+      "image": "images/Buffalo Kick.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -16,7 +16,7 @@
     {
       "name": "Burger Blast Sauce",
       "description": "Our signature burger sauce with special spices",
-      "image": "images/Burger Blast Sauce.jpg",
+      "image": "images/Burger Blast.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -29,7 +29,7 @@
     {
       "name": "Garlic Chilli Sauce",
       "description": "Spicy garlic chilli sauce",
-      "image": "images/Garlic Chilli Sauce.jpg",
+      "image": "images/Garlic Chilli.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -42,7 +42,7 @@
     {
       "name": "Garlic Herb Sauce",
       "description": "Creamy garlic herb sauce",
-      "image": "images/Garlic Herb Sauce.jpg",
+      "image": "images/Garlic Herb.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -55,7 +55,7 @@
     {
       "name": "Habanero Mayo Sauce",
       "description": "Spicy habanero mayonnaise sauce",
-      "image": "images/Habanero Mayo Sauce.jpg",
+      "image": "images/Habanero Mayo.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -68,7 +68,7 @@
     {
       "name": "Hot Honey Siracha Sauce",
       "description": "Sweet and spicy hot honey sriracha sauce",
-      "image": "images/Hot Honey Siracha Sauce.jpg",
+      "image": "images/Hot Honey Siracha.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -81,7 +81,7 @@
     {
       "name": "Mango Habanero Sauce",
       "description": "Fruity and spicy mango habanero sauce",
-      "image": "images/Mango Habanero Sauce.jpg",
+      "image": "images/Mango Habanero.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -94,7 +94,7 @@
     {
       "name": "Siracha Heat Sauce",
       "description": "Fiery sriracha heat sauce",
-      "image": "images/Siracha Heat Sauce.jpg",
+      "image": "images/Siracha Heat.jpg",
       "price": 1,
       "tags": [
         "sauces"
@@ -107,7 +107,7 @@
     {
       "name": "Smokey BBQ Sauce",
       "description": "Rich and smokey BBQ sauce",
-      "image": "images/Smokey BBQ Sauce.jpg",
+      "image": "images/Smokey BBQ.jpg",
       "price": 1,
       "tags": [
         "sauces"
