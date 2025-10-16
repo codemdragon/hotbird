@@ -1264,7 +1264,6 @@
     ];
 
     // Drinks options - using fixed list instead of drinks.json
-    // Drinks options - using fixed list instead of drinks.json
     let drinkOptions = fixedDrinkOptions;
 
     // Burger options for burger selection dropdown
@@ -1281,14 +1280,15 @@
         "Lettuce", "Onions", "Pickles", "Tomatoes", "Cucumber"
     ];
 
-    // JSON files to load (removed drinks.json since we're using fixed list)
+    // JSON files to load (ADDED drinks.json back)
     const jsonFiles = [
         "hotbuckets.json",
         "hotbirds.json", 
         "wings.json",
         "sauces.json",
         "hot-tenders.json",
-        "hot-deals.json"
+        "hot-deals.json",
+        "drinks.json"  // ADDED THIS LINE BACK
     ];
 
     let menuData = {};
@@ -1355,7 +1355,6 @@
     const detailsContainer = document.getElementById('details-container');
     const checkoutInputs = document.querySelectorAll('.checkout-input');
 
-    // Modal elements
     // Modal elements
     const itemModal = document.getElementById('item-modal');
     const modalImage = document.getElementById('modal-image');
@@ -1499,7 +1498,6 @@
     }
 
     // Open modal for a menu item
-    // Open modal for a menu item
     function openItemModal(item) {
         currentModalItem = item;
 
@@ -1531,7 +1529,6 @@
         }
 
         // NEW: Show or hide drinks dropdown based on item
-        // NEW: Show or hide drinks dropdown based on item
         if (item.showDrinksDropdown) {
             drinksDropdown.style.display = 'block';
             // Populate drinks dropdown
@@ -1543,7 +1540,6 @@
             });
         }
 
-        // NEW: Show or hide burger selection based on item
         // NEW: Show or hide burger selection based on item
         if (item.showBurgerSelection !== false && item.tags.includes("hotdeals")) {
             burgerSelection.style.display = 'block';
@@ -1580,7 +1576,6 @@
             const comboItemsHTML = renderComboItems(item.comboItems);
             modalDescription.insertAdjacentHTML('afterend', comboItemsHTML);
         }
-
 
         // ----- OPTIONS LOGIC -----
         const hasOptions = item.options && item.options.length > 0;
@@ -1627,7 +1622,6 @@
             basePrice = item.price;
         }
 
-        // ----- DIPS ----- (changed from sauces)
         // ----- DIPS ----- (changed from sauces)
         if (item.sauces) {
             // Find the category for dip options
@@ -1763,7 +1757,6 @@
         }
         
         // Get selected vegetables if applicable
-        // Get selected vegetables if applicable
         if (currentModalItem.vegetables) {
             const vegetableCheckboxes = document.querySelectorAll('input[name="vegetables"]:checked');
             selectedVegetables = Array.from(vegetableCheckboxes).map(cb => cb.value);
@@ -1823,7 +1816,6 @@
                 selectedDrink: selectedDrink
             };
             
-            // NEW: Store combo items for backend processing
             // NEW: Store combo items for backend processing
             if (currentModalItem.comboItems && currentModalItem.comboItems.length > 0) {
                 cartItem.isCombo = true;
@@ -2171,217 +2163,116 @@
                 document.body.style.overflow = 'auto';
             });
         });
-        
-        // Close mobile menu when clicking outside
-        mobileMenu.addEventListener('click', (e) => {
-            if (e.target === mobileMenu) {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            }
-        });
     }
 
-    // Initialize the page
-    function init() {
-        // Load menu items
+    // Initialize the application
+    async function init() {
+        await loadAllJSON();
         loadMenuItems();
-        
-        // Event listeners
-        cartButton.addEventListener('click', openCartDrawer);
-        closeCart.addEventListener('click', closeCartDrawer);
-        overlay.addEventListener('click', closeCartDrawer);
-        
-        // NEW: Clear cart button event listener
-        clearCartButton.addEventListener('click', clearCart);
-        
-        // Search and filter events
-        searchInput.addEventListener('input', filterMenuItems);
-        
-        tagFilters.forEach(filter => {
-            filter.addEventListener('click', () => {
-                tagFilters.forEach(f => f.classList.remove('active'));
-                filter.classList.add('active');
-                filterMenuItems();
-            });
-        });
-        
-        // Checkout events
-        checkoutButton.addEventListener('click', showCheckoutPage);
-        orderNowButton.addEventListener('click', showCheckoutPage);
-        backToMenuButton.addEventListener('click', showMainContent);
-        
-        // View Menu button event
-        viewMenuButton.addEventListener('click', () => {
-            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
-            
-            // Update active navigation link
-            document.querySelectorAll('.nav-link').forEach(navLink => {
-                navLink.classList.remove('active-section');
-            });
-            document.querySelector('[href="#menu"]').classList.add('active-section');
-        });
-        
-        // Form submission
-        checkoutForm.addEventListener('submit', handleFormSubmit);
-        
-        // Confirmation button
-        confirmOkButton.addEventListener('click', () => {
-            orderConfirmation.classList.add('hidden');
-            showMainContent();
-            cart = [];
-            updateCart();
-            checkoutForm.reset();
-            // NEW: Also reset the checkout form state after order
-            deliveryTypeDropdown.value = '';
-            detailsContainer.style.display = 'none';
-            placeOrderButton.disabled = true;
-        });
-        
-        // Modal events
-        closeModal.addEventListener('click', closeItemModal);
-        modalAddBase.addEventListener('click', addToCartFromModal);
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === itemModal) {
-                closeItemModal();
-            }
-        });
-        
-        // Set initial active filter
-        document.querySelector('[data-tag="all"]').classList.add('active');
-        
-        // Image position control events
-        imagePositionSlider.addEventListener('input', (e) => {
-            updateImagePosition(e.target.value);
-        });
-        
-        resetPositionButton.addEventListener('click', () => {
-            imagePositionSlider.value = 0;
-            updateImagePosition(0);
-        });
-
-        // NEW: Checkout form logic
-        deliveryTypeDropdown.addEventListener('change', (e) => {
-            if (e.target.value === 'collection') {
-                detailsContainer.style.display = 'block';
-                pickupTimeContainer.style.display = 'block';
-                checkFormValidity();
-            } else {
-                detailsContainer.style.display = 'none';
-                pickupTimeContainer.style.display = 'none';
-                placeOrderButton.disabled = true;
-            }
-        });
-
-        checkoutInputs.forEach(input => {
-            input.addEventListener('input', checkFormValidity);
-        });
-
-        // NEW: Quantity selector events
-        decreaseQuantityBtn.addEventListener('click', () => {
-            let value = parseInt(quantityInput.value);
-            if (value > 1) {
-                quantityInput.value = value - 1;
-                updateQuantityButtons();
-                if (currentModalItem) {
-                    const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                    let basePrice = hasOptions ? 
-                        currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                        currentModalItem.price;
-                    updateModalPrices(currentModalItem, basePrice);
-                }
-            }
-        });
-
-        increaseQuantityBtn.addEventListener('click', () => {
-            let value = parseInt(quantityInput.value);
-            if (value < MAX_QUANTITY_PER_ITEM) {
-                quantityInput.value = value + 1;
-                updateQuantityButtons();
-                if (currentModalItem) {
-                    const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                    let basePrice = hasOptions ? 
-                        currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                        currentModalItem.price;
-                    updateModalPrices(currentModalItem, basePrice);
-                }
-            }
-        });
-
-        quantityInput.addEventListener('input', (e) => {
-            let value = parseInt(e.target.value);
-            if (isNaN(value) || value < 1) {
-                e.target.value = 1;
-            } else if (value > MAX_QUANTITY_PER_ITEM) {
-                e.target.value = MAX_QUANTITY_PER_ITEM;
-            }
-            updateQuantityButtons();
-            if (currentModalItem) {
-                const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                let basePrice = hasOptions ? 
-                    currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                    currentModalItem.price;
-                updateModalPrices(currentModalItem, basePrice);
-            }
-        });
-
-        quantityInput.addEventListener('change', (e) => {
-            let value = parseInt(e.target.value);
-            if (isNaN(value) || value < 1) {
-                e.target.value = 1;
-            } else if (value > MAX_QUANTITY_PER_ITEM) {
-                e.target.value = MAX_QUANTITY_PER_ITEM;
-            }
-            updateQuantityButtons();
-            if (currentModalItem) {
-                const hasOptions = currentModalItem.options && currentModalItem.options.length > 0;
-                let basePrice = hasOptions ? 
-                    currentModalItem.options[document.getElementById('modal-option-select').value].price : 
-                    currentModalItem.price;
-                updateModalPrices(currentModalItem, basePrice);
-            }
-        });
+        updateCart();
         
         // Initialize scroll spy
         initScrollSpy();
         
         // Initialize mobile menu
         initMobileMenu();
-    }
-
-    // DOM Content Loaded
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Load JSON and init app
-        await loadAllJSON();
-        init();
-
-        // Smooth scrolling for navigation
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-
-                if (targetSection) {
-                    targetSection.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Update active link immediately
-                    document.querySelectorAll('.nav-link').forEach(navLink => {
-                        navLink.classList.remove('active-section');
-                    });
-                    link.classList.add('active-section');
-                    
-                    // Close mobile menu if open
-                    const mobileMenu = document.getElementById('mobile-menu');
-                    if (mobileMenu.classList.contains('active')) {
-                        mobileMenu.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                }
+        
+        // Event listeners
+        cartButton.addEventListener('click', openCartDrawer);
+        closeCart.addEventListener('click', closeCartDrawer);
+        overlay.addEventListener('click', closeCartDrawer);
+        closeModal.addEventListener('click', closeItemModal);
+        modalAddBase.addEventListener('click', addToCartFromModal);
+        searchInput.addEventListener('input', filterMenuItems);
+        checkoutButton.addEventListener('click', showCheckoutPage);
+        orderNowButton.addEventListener('click', showCheckoutPage);
+        viewMenuButton.addEventListener('click', () => {
+            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+        });
+        backToMenuButton.addEventListener('click', showMainContent);
+        checkoutForm.addEventListener('submit', handleFormSubmit);
+        confirmOkButton.addEventListener('click', () => {
+            orderConfirmation.classList.add('hidden');
+            showMainContent();
+            clearCart();
+        });
+        
+        // NEW: Quantity selector event listeners
+        decreaseQuantityBtn.addEventListener('click', () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantityInput.value = quantity - 1;
+                updateQuantityButtons();
+                updateModalPrices(currentModalItem, currentModalItem.price);
+            }
+        });
+        
+        increaseQuantityBtn.addEventListener('click', () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < MAX_QUANTITY_PER_ITEM) {
+                quantityInput.value = quantity + 1;
+                updateQuantityButtons();
+                updateModalPrices(currentModalItem, currentModalItem.price);
+            }
+        });
+        
+        quantityInput.addEventListener('change', () => {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < 1) quantityInput.value = 1;
+            if (quantity > MAX_QUANTITY_PER_ITEM) quantityInput.value = MAX_QUANTITY_PER_ITEM;
+            updateQuantityButtons();
+            updateModalPrices(currentModalItem, currentModalItem.price);
+        });
+        
+        // NEW: Image position slider
+        imagePositionSlider.addEventListener('input', (e) => {
+            updateImagePosition(e.target.value);
+        });
+        
+        resetPositionButton.addEventListener('click', () => {
+            updateImagePosition(50);
+            imagePositionSlider.value = 50;
+        });
+        
+        // NEW: Clear cart button
+        clearCartButton.addEventListener('click', clearCart);
+        
+        // NEW: Tag filter event listeners
+        tagFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                // Remove active class from all filters
+                tagFilters.forEach(f => f.classList.remove('active'));
+                // Add active class to clicked filter
+                filter.classList.add('active');
+                filterMenuItems();
             });
         });
-    });
+        
+        // NEW: Delivery type dropdown event listener
+        deliveryTypeDropdown.addEventListener('change', (e) => {
+            if (e.target.value === 'collection') {
+                detailsContainer.style.display = 'block';
+                pickupTimeContainer.style.display = 'block';
+            } else if (e.target.value === 'delivery') {
+                detailsContainer.style.display = 'block';
+                pickupTimeContainer.style.display = 'none';
+            } else {
+                detailsContainer.style.display = 'none';
+                pickupTimeContainer.style.display = 'none';
+            }
+            checkFormValidity();
+        });
+        
+        // NEW: Check form validity on input
+        checkoutInputs.forEach(input => {
+            input.addEventListener('input', checkFormValidity);
+        });
+        
+        pickupTimeDropdown.addEventListener('change', checkFormValidity);
+    }
+
+    // Start the application
+    init();
 </script>
 </body>
 
